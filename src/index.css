@@ -4,7 +4,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #ffffff;
-  background-image: url('./images/mainBg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   /* overflow-x: hidden; */

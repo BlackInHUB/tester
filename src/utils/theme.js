@@ -3,12 +3,17 @@ const theme = {
         main: 'Manrope, sans-serif'
     },  
     colors: {
-        mainBG: '#1E0E62',
-        mainBGrgba: 'rgba(30, 14, 98, 0.6)',
-        mainFont: '#ffffff',
-        secondaryFont: '#151439',
-        button: '#1DA1F2',
-        hoveredButton: '#482BE7'
+        mainBG: '#F8F8F7',
+        secondaryBG: '#FFFFFF',
+        mainFont: '#1D1D1D',
+        secondaryFont: '#8C8C8C',
+        hoveredItem: 'rgba(255, 134, 142, 0.6)',
+        lightFont: '#FFFFFF',
+        hover: '#FBE0DC',
+        active: '#FF868E',
+        green: '#97EAB9',
+        purple: '#B4B7FF',
+        orange: '#FFD280'
 
     },
     space: [0, 2, 4, 8, 12, 16, 20, 24, 28, 32, 40, 50, 60, 80, 100],
@@ -43,7 +48,7 @@ const theme = {
     },
     radii: {
         none: '0',
-        s: '8px',
+        s: '10px',
         m: '20px',
         l: '40px',
         c: '50%',
