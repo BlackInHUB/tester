@@ -3,7 +3,6 @@ import { IconButton } from "../reusableComponents/Buttons/IconButton";
 
 export const Answer = ({id, onDelete, value, handleChange, length}) => {
     const {answer, correct} = value;
-    console.log(correct)
 
     return (
         <AnswerWrapper>

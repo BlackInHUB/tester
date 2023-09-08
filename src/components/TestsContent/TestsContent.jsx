@@ -29,6 +29,8 @@ export const TestsContent = () => {
         create(questions).then(response => setTests(tests => {return [response, ...tests]}));
     };
 
+    console.log(tests);
+
     return (
         <Container>
             <Button onClick={toggleModal} type='button' $bgColor='hover' $iconType='plus' $iconSize='25px' text='Create a Test' />

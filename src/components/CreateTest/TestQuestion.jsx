@@ -34,10 +34,10 @@ export const TestQuestion = ({handleSubmit, toggleModal}) => {
         setAnswers(answers => answers.map(a => {
             if (a.id  === id) {
                 if (type === 'checkbox') {
-                    console.log(checked)
-                    // a[name] = checked;
-                };
-                a[name] = value;
+                    a[name] = checked;
+                } else {
+                    a[name] = value;
+                }
             };
             return a;
         }));
