@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const AuthContent = () => {
-    const [authCase, setAuthCase] = useState('sign up');
+    const [authCase, setAuthCase] = useState('log in');
     const {register, logIn} = useApp();
 
     const handleAuthNavClick = (e) => {
@@ -39,10 +39,10 @@ export const AuthContent = () => {
                 <AuthWrapper>
                     <AuthNavList>
                         <AuthNavItem>
-                            <AuthNavBtn name='sign up' type='button' $active={authCase === 'sign up'} onClick={handleAuthNavClick}>SIGN UP</AuthNavBtn>
+                            <AuthNavBtn name='log in' type='button' $active={authCase === 'log in'} onClick={handleAuthNavClick}>LOG IN</AuthNavBtn>
                         </AuthNavItem>
                         <AuthNavItem>
-                            <AuthNavBtn name='log in' type='button' $active={authCase === 'log in'} onClick={handleAuthNavClick}>LOG IN</AuthNavBtn>
+                            <AuthNavBtn name='sign up' type='button' $active={authCase === 'sign up'} onClick={handleAuthNavClick}>SIGN UP</AuthNavBtn>
                         </AuthNavItem>
                     </AuthNavList>
                     <Form initialState={initialState} onSubmit={handleSubmit} authCase={authCase} />

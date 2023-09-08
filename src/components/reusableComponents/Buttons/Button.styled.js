@@ -1,9 +1,12 @@
 import { styled } from "styled-components";
 
 export const Btn = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: ${p => p.$w};
     height: fit-content;
-    padding: ${p => p.theme.space[4]}px ${p => p.theme.space[9]}px;
+    padding: ${p => p.theme.space[4]}px ${p => p.theme.space[8]}px;
     border-radius: ${p => p.theme.radii.s};
     font-size: ${p => p.theme.fontSize[2]};
     line-height: ${p => p.theme.lineHeight.l};
@@ -29,8 +32,8 @@ export const StyledIcon = styled.svg`
     vertical-align: top;
     margin-right: 10px;
     fill: ${p => p.theme.colors.mainFont};
-    width: 20px;
-    height: 20px;
+    width: ${props => props.$iconSize ? props.$iconSize : '20px'};;
+    height: ${props => props.$iconSize ? props.$iconSize : '20px'};;
     transition: ${p => p.theme.transition.all};
 
     ${Btn}:hover & {

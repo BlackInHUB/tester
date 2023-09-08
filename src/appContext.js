@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import * as authApi from './services/authApi';
 
 const AppContext = createContext();
@@ -8,9 +8,17 @@ export const useApp = () => useContext(AppContext);
 export const AppProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userData, setUserData] = useState(null);
+    const [users, setUsers] = useState(null);
 
-    const logIn = (authData) => {
-        authApi.login(authData).then(setUserData);
+    useEffect(() => {
+        if (!userData) {
+            return;
+        };
+        authApi.getUsers().then(setUsers);
+    }, [userData]);
+
+    const logIn = async (authData) => {
+        await authApi.login(authData).then(setUserData);
         setIsLoggedIn(true);
     };
 
@@ -23,12 +31,13 @@ export const AppProvider = ({ children }) => {
     };
 
     const logOut = () => {
+        authApi.logout();
         setUserData(null);
         setIsLoggedIn(false);
     };
 
     return (
-        <AppContext.Provider value={{ isLoggedIn, userData, logIn, logOut, register }}>
+        <AppContext.Provider value={{ users, isLoggedIn, userData, logIn, logOut, register }}>
             {children}
         </AppContext.Provider>
     );

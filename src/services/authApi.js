@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const instance = axios.create({
+export const instance = axios.create({
     baseURL: 'http://localhost:8080'
 });
 
@@ -29,7 +29,27 @@ const login = async (authData) => {
     };
 };
 
+const logout = async () => {
+    try {
+        await instance.get('/auth/logout');
+        setToken('');
+    } catch (error) {
+        console.log(error);
+    };
+};
+
+const getUsers = async () => {
+    try {
+        const {data} = await instance.get('/auth/users');
+        return data;
+    } catch (error) {
+        console.log(error);
+    };
+}
+
 export {
     register,
-    login
+    login,
+    logout,
+    getUsers
 };

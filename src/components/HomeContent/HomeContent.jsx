@@ -23,7 +23,7 @@ export const HomeContent = () => {
             <HomeTitle>Welcome!</HomeTitle>
             {isLoggedIn ? 
                 <Button $bgColor='hover' text='Go to Tests' type='button' onClick={handleGoToTestsClick}></Button> :
-                <Button $bgColor='hover' text='Create an Account' type='button' onClick={handleAuthBtnClick}></Button>
+                <Button $bgColor='hover' text='Get Started' type='button' onClick={handleAuthBtnClick}></Button>
             }
             </ContentWrapper>
         </Container>
