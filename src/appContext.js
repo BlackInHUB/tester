@@ -11,6 +11,17 @@ export const AppProvider = ({ children }) => {
     const [users, setUsers] = useState(null);
 
     useEffect(() => {
+        const localToken = localStorage.getItem('token');
+
+        if (!localToken || localToken === '') {
+            return;
+        };
+
+        authApi.current(JSON.parse(localToken)).then(response => setUserData(data => {return {...data, user: response}}));
+        setIsLoggedIn(true);
+    }, []);
+
+    useEffect(() => {
         if (!userData) {
             return;
         };
@@ -18,7 +29,9 @@ export const AppProvider = ({ children }) => {
     }, [userData]);
 
     const logIn = async (authData) => {
-        await authApi.login(authData).then(setUserData);
+        const user = await authApi.login(authData);       
+        setUserData(user);
+        localStorage.setItem('token', JSON.stringify(user.token));
         setIsLoggedIn(true);
     };
 
@@ -34,6 +47,7 @@ export const AppProvider = ({ children }) => {
         authApi.logout();
         setUserData(null);
         setIsLoggedIn(false);
+        localStorage.setItem('token', '');
     };
 
     return (

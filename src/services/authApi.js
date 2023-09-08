@@ -45,11 +45,23 @@ const getUsers = async () => {
     } catch (error) {
         console.log(error);
     };
+};
+
+const current = async (token) => {
+    try {
+        setToken(token);
+        const {data} = await instance.get('/auth/current');
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 export {
     register,
     login,
     logout,
-    getUsers
+    getUsers,
+    current
 };
