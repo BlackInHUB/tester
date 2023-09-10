@@ -12,6 +12,7 @@ const theme = {
         hover: '#FBE0DC',
         active: '#FF868E',
         green: '#97EAB9',
+        greenHover: '#03ad39',
         purple: '#B4B7FF',
         orange: '#FFD280'
 
@@ -45,6 +46,7 @@ const theme = {
         none: 'none',
         s: '1px solid',
         m: '2px solid',
+        l: '3px solid'
     },
     radii: {
         none: '0',

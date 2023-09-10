@@ -1,7 +1,6 @@
-import { ALabel, BtnsWrapper, PreviewImg, QLabel, QuestionWrapper, TestForm, TestWrapper, UploadInput, UploadLabel } from "./CreateTest.styled";
+import { AnswersLabel, AnswersLabelSpan, BtnsWrapper, PreviewImg, QLabel, QuestionWrapper, TestForm, TestWrapper, UploadInput, UploadLabel, Question } from "./TestQuestion.styled";
 import { Answer } from "./Answer";
 import { useRef, useState } from "react";
-import { Question } from "./CreateTest.styled";
 import { nanoid } from "nanoid";
 import { Button } from "../reusableComponents/Buttons/Button";
 import { upload } from "../../services/testsApi";
@@ -67,7 +66,8 @@ export const TestQuestion = ({handleSubmit, toggleModal}) => {
             data.append('image', file);
             image = await upload(data);
         };
-        handleSubmit({question, ...image, answers});
+        const multiple = answers.filter(a => a.correct).length;
+        handleSubmit({id: nanoid(), question, ...image, answers, multiple});
         handleCleanUp(e);
         toggleModal();
     };
@@ -85,12 +85,12 @@ export const TestQuestion = ({handleSubmit, toggleModal}) => {
                         {file && <PreviewImg src={URL.createObjectURL(file)} />}
                     </UploadLabel>
                 </QuestionWrapper>
-                <ALabel>Answers:</ALabel>
+                <AnswersLabel>Answers:<AnswersLabelSpan>Mark correct answer (can be multiple) ✔</AnswersLabelSpan></AnswersLabel>
                 {answers.map(({id, ...value}) => <Answer length={answers.length} key={id} id={id} value={value} handleChange={handleAnswerChange} onDelete={deleteAnswer} />)}
                 <IconButton $iconType='plus' $type='button' onClick={addAnswer} $size='25px'>Add Answer</IconButton>
                 <BtnsWrapper>
-                    <Button type='submit' text='Done' $bgColor='hover' $w='fit-content' />
-                    <Button type='button' text='Clean up' $bgColor='hover' $w='fit-content' onClick={handleCleanUp} />
+                    <Button type='submit' text='Add' $bgColor='green' $color='mainFont' $w='fit-content' />
+                    <Button type='button' text='Clean up' $bgColor='hover' $color='active' $w='fit-content' onClick={handleCleanUp} />
                 </BtnsWrapper>
             </TestForm>
         </TestWrapper>

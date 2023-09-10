@@ -1,4 +1,5 @@
 import axios from "axios";
+import { notify } from "../utils/notify";
 
 export const instance = axios.create({
     baseURL: 'http://localhost:8080'
@@ -14,8 +15,9 @@ const register = async (authData) => {
     try {
         const {data} = await instance.post('/auth/register', authData);
         return data;
-    } catch (error) {
-        console.log(error);
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
     };
 };
 
@@ -24,8 +26,9 @@ const login = async (authData) => {
         const {data} = await instance.post('/auth/login', authData);
         setToken(data.token);
         return data;
-    } catch (error) {
-        console.log(error);
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
     };
 };
 
@@ -33,8 +36,9 @@ const logout = async () => {
     try {
         await instance.get('/auth/logout');
         setToken('');
-    } catch (error) {
-        console.log(error);
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
     };
 };
 
@@ -42,8 +46,9 @@ const getUsers = async () => {
     try {
         const {data} = await instance.get('/auth/users');
         return data;
-    } catch (error) {
-        console.log(error);
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
     };
 };
 
@@ -52,11 +57,11 @@ const current = async (token) => {
         setToken(token);
         const {data} = await instance.get('/auth/current');
         return data;
-    } catch (error) {
-        console.log(error);
-    }
-
-}
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
+    };
+};
 
 export {
     register,

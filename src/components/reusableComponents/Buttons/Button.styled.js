@@ -10,22 +10,28 @@ export const Btn = styled.button`
     border-radius: ${p => p.theme.radii.s};
     font-size: ${p => p.theme.fontSize[2]};
     line-height: ${p => p.theme.lineHeight.l};
-    color: ${p => p.$bgColor ? p.theme.colors.active : p.theme.colors.mainFont};
+    color: ${props => props.$color ? props.theme.colors[props.$color] : props.theme.colors.mainFont};
     font-weight: ${p => p.theme.fontWeight.m};
     background-color: ${p => p.$bgColor ? p.theme.colors[p.$bgColor] : 'transparent'};
     border-radius: ${p => p.theme.radii.l};
     margin-top: ${p => p.$mt ? p.$mt : null};
     transition: ${p => p.theme.transition.all};
 
-    &:hover {
-        color: ${p => p.$bgColor ? p.theme.colors.lightFont : p.theme.colors.active};
-        background-color: ${p => p.$bgColor ? p.theme.colors.active : null};
+    &:hover:not(:disabled) {
+        color: ${p => !p.$color ? p.theme.colors.active : p.theme.colors.lightFont };
+        background-color: ${p => p.$bgColor === 'hover' ? p.theme.colors.active : p.$bgColor === 'green' ? p.theme.colors.greenHover : null};
     };
 
-    &:focus-visible {
-        color: ${p => p.$bgColor ? p.theme.colors.lightFont : p.theme.colors.active};
-        background-color: ${p => p.$bgColor ? p.theme.colors.active : null};
-    }
+    &:focus-visible:not(:disabled) {
+        color: ${p => !p.$color ? p.theme.colors.active : p.theme.colors.lightFont };
+        background-color: ${p => p.$bgColor === 'hover' ? p.theme.colors.active : p.$bgColor === 'green' ? p.theme.colors.greenHover : null};
+    };
+
+    &:disabled {
+        cursor: auto;
+        color: ${({ theme }) => theme.colors.secondaryFont};
+        background-color: transparent;
+    };
 `
 
 export const StyledIcon = styled.svg`

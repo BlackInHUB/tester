@@ -10,13 +10,17 @@ export const IconBtn = styled.button`
     margin: 0 auto;
     transition: ${({ theme }) => theme.transition.all};
 
-    &:hover {
+    &:hover:not(:disabled) {
         color: ${({ theme }) => theme.colors.active};
     };
 
-    &:focus-visible {
+    &:focus-visible:not(:disabled) {
         color: ${({ theme }) => theme.colors.active};
     };
+
+    &:disabled {
+        cursor: auto;
+    }
 `;
 
 export const StyledIcon = styled.svg`
@@ -25,11 +29,15 @@ export const StyledIcon = styled.svg`
     transition: ${({ theme }) => theme.transition.all};
     fill: ${({ theme }) => theme.colors.mainFont};
 
-    ${IconBtn}:hover & {
+    ${IconBtn}:hover:not(:disabled) & {
         fill: ${({ theme }) => theme.colors.active};
     };
 
-    ${IconBtn}:focus-visible & {
+    ${IconBtn}:focus-visible:not(:disabled) & {
         fill: ${({ theme }) => theme.colors.active};
+    };
+
+    ${IconBtn}:disabled & {
+        fill: ${({ theme }) => theme.colors.secondaryFont};
     }
 `;

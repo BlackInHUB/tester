@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { CreateTest } from "../CreateTest/CreateTest";
 import { create, getTests } from "../../services/testsApi";
 import { useApp } from "../../appContext";
-import { TestsList } from "../TestsList/TestsList";
+import { TestsList } from "../TestSList/TestsList";
+import { notify } from "../../utils/notify";
 
 export const TestsContent = () => {
     const [open, setOpen] = useState(false);
@@ -24,17 +25,16 @@ export const TestsContent = () => {
         setOpen(o => !o);
     };
 
-    const createTestSubmit = (questions) => {
+    const createTestSubmit = (test) => {
         toggleModal();
-        create(questions).then(response => setTests(tests => {return [response, ...tests]}));
+        create(test).then(response => setTests(tests => {return [response, ...tests]}));
+        notify('success', 'Test successfully created!')
     };
-
-    console.log(tests);
 
     return (
         <Container>
-            <Button onClick={toggleModal} type='button' $bgColor='hover' $iconType='plus' $iconSize='25px' text='Create a Test' />
-            <SectionTitle>Available Tests:</SectionTitle>
+            <Button onClick={toggleModal} type='button' $bgColor='hover' $color='active' $iconType='plus' $iconSize='25px' text='Create a Test' />
+            {tests.length > 0 && <SectionTitle>Available Tests:</SectionTitle>}
             {tests.length > 0 && <TestsList tests={tests} />}
             {open && <Modal toggleModal={toggleModal} children={<CreateTest onSubmit={createTestSubmit} />} />}
         </Container>

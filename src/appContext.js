@@ -29,7 +29,10 @@ export const AppProvider = ({ children }) => {
     }, [userData]);
 
     const logIn = async (authData) => {
-        const user = await authApi.login(authData);       
+        const user = await authApi.login(authData);
+        if (!user) {
+            return;
+        };
         setUserData(user);
         localStorage.setItem('token', JSON.stringify(user.token));
         setIsLoggedIn(true);

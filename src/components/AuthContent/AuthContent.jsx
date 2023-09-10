@@ -2,6 +2,7 @@ import { Container, LeftWrapper, RightWrapper, AuthWrapper, AuthNavList, AuthNav
 import { Form } from "../reusableComponents/Forms/Form";
 import { useState } from "react";
 import { useApp } from "../../appContext";
+import { notify } from "../../utils/notify";
 
 const initialState = {
     name: '',
@@ -19,13 +20,20 @@ export const AuthContent = () => {
     };
 
     const handleSubmit = (authData) => {
+        const {password, confirm, email, name} = authData;
+
         if (authCase === 'sign up') {
-            const {password, confirm} = authData;
             if (password !== confirm) {
-                return alert('Passwords must match!')
+                return notify('warning', 'Passwords must match!');
+            };
+            if (!password || !confirm || !email || !name) {
+                return notify('warning', 'All fields must not be empty!');
             };
             return register(authData);
         } else if (authCase === 'log in') {
+            if (!password || !email) {
+                return notify('warning', 'All fields must not be empty!');
+            };
             return logIn(authData);
         } else {
             return;

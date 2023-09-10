@@ -14,7 +14,7 @@ export const Form = ({authCase, onSubmit, initialState}) => {
                 <Input name='password' value={password} type='password' placeholder="Your password" onChange={handleChange} autoComplete="false" />
                 {authCase === 'sign up' && <Input name='confirm' value={confirm} type='password' placeholder="Confirm your password" onChange={handleChange} autoComplete="false" />}
             </InputsWrapper>
-            <Button $bgColor='hover' $w='100%' type='submit' text={authCase === 'sign up' ? 'Create an Account' : 'Log In'} />
+            <Button $bgColor='green' $color='mainFont' $w='100%' type='submit' text={authCase === 'sign up' ? 'Create an Account' : 'Log In'} />
         </Frm>
     );
 };

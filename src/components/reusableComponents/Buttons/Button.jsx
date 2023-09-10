@@ -2,9 +2,9 @@ import { Btn, StyledIcon } from "./Button.styled";
 import {RiLogoutBoxRLine} from 'react-icons/ri';
 import {RxPlus} from 'react-icons/rx';
 
-export const Button = ({$iconType, $iconSize, onClick, text, type, $bgColor, $mt, $w}) => {
+export const Button = ({disabled, $iconType, $iconSize, onClick, text, type, $bgColor, $color, $mt, name, $w}) => {
     return (
-        <Btn $bgColor={$bgColor} type={type} onClick={onClick} $w={$w} $mt={$mt}>
+        <Btn disabled={disabled} name={name} $bgColor={$bgColor} type={type} onClick={onClick} $w={$w} $mt={$mt} $color={$color}>
             {$iconType && 
                 <StyledIcon $iconSize={$iconSize} as={
                     $iconType === 'logout' ? RiLogoutBoxRLine :
