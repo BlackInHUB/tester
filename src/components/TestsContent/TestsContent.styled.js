@@ -13,3 +13,18 @@ export const SectionTitle = styled.p`
     margin-top: ${({ theme }) => theme.space[10]}px;
     margin-bottom: ${({ theme }) => theme.space[4]}px;
 `
+
+export const Sorry = styled.div`
+    padding: ${({ theme }) => theme.space[4]}px;
+    background-color: ${({ theme }) => theme.colors.secondaryBG};
+    border-radius: ${({ theme }) => theme.radii.s};
+    margin-top: ${({ theme }) => theme.space[8]}px;
+`;
+
+export const SorryText = styled.p`
+    
+`;
+
+export const SorryCategory = styled.span`
+    font-weight: ${({ theme }) => theme.fontWeight.l};
+`

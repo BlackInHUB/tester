@@ -1,5 +1,5 @@
 import { Button } from "../reusableComponents/Buttons/Button";
-import { Container, SectionTitle } from "./TestsContent.styled";
+import { Container, SectionTitle, Sorry, SorryCategory, SorryText } from "./TestsContent.styled";
 import { Modal } from "../Modal/Modal";
 import { useEffect, useState } from "react";
 import { CreateTest } from "../CreateTest/CreateTest";
@@ -49,8 +49,9 @@ export const TestsContent = () => {
     return (
         <Container>
             <Button onClick={toggleModal} type='button' $bgColor='hover' $color='active' $iconType='plus' $iconSize='25px' text='Create a Test' />
-            {tests?.length > 0 && <SectionTitle>Available Tests:</SectionTitle>}
             <CategoriesSelect chosen={chosen} setChosen={setChosen} options={categories} />
+            {tests?.length <= 0 && <Sorry><SorryText>Sorry, but we have no tests in category <SorryCategory>{chosen.name}</SorryCategory> yet :(</SorryText></Sorry>}
+            {tests?.length > 0 && <SectionTitle>Available Tests:</SectionTitle>}
             {tests?.length > 0 && <TestsList tests={tests} />}
             {open && <Modal toggleModal={toggleModal} children={<CreateTest onSubmit={createTestSubmit} cat={categories} />} />}
         </Container>

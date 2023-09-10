@@ -22,7 +22,6 @@ const getTime = (ms) => {
 };
 
 const getStatus = (score, testScore) => {
-    console.log(testScore);
     if (!testScore) {
         return 'complited'
     } else if (score >= testScore) {
