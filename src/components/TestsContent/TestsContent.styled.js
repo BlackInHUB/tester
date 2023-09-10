@@ -11,4 +11,5 @@ export const SectionTitle = styled.p`
     font-weight: ${({ theme }) => theme.fontWeight.m};
     text-align: center;
     margin-top: ${({ theme }) => theme.space[10]}px;
+    margin-bottom: ${({ theme }) => theme.space[4]}px;
 `

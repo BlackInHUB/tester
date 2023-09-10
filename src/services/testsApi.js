@@ -21,9 +21,10 @@ const create = async (body) => {
     };
 };
 
-const getTests = async () => {
+const getTests = async (params) => {
     try {
-        const {data} = await instance.get('/tests/getall');
+        const {data} = await instance.get(`/tests/getall?${params}`);
+        // console.log(data);
         return data;
     } catch ({response}) {
         notify('error', response.data.message)
@@ -43,7 +44,17 @@ const getTest = async (_id) => {
 
 const sendResults = async (_id, results) => {
     try {
-        await instance.patch(`/tests/sendresults/${_id}`, results);
+        return await instance.patch(`/tests/sendresults/${_id}`, results);
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
+    };
+};
+
+const getCategories = async () => {
+    try {
+        const {data} = await instance.get('/categories/getall/');
+        return data;
     } catch ({response}) {
         notify('error', response.data.message)
         console.log(response.data.message);
@@ -55,5 +66,6 @@ export {
     upload,
     getTests,
     getTest,
-    sendResults
+    sendResults,
+    getCategories
 };

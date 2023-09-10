@@ -7,7 +7,9 @@ const answerLetter = (i) => {
 };
 
 const getTime = (ms) => {
-    const seconds = parseInt((ms / 1000));
+    const nMs = Number(ms);
+
+    const seconds = parseInt((nMs / 1000));
     const minutes = parseInt((seconds / 60));
     const hours = parseInt((minutes / 60));
     if (minutes <= 0 && hours <= 0) {
