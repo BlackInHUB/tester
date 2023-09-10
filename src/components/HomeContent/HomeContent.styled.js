@@ -1,16 +1,5 @@
-import { keyframes, styled } from "styled-components";
+import { styled } from "styled-components";
 import heroImg from '../../images/heroImg.jpg';
-
-const titleAnimation = keyframes`
-    /* 0% {transform: scale(0.25); border-width: 0%};
-    75% {transform: scale(1.1) rotate(0deg)};
-    100% {transform: scale(1) rotate(360deg)}; */
-    from {
-        transform: translate(-100%, 0);
-    } to {
-        transform: translate(0, 0)
-    }
-`
 
 export const Container = styled.section`
     height: 100%;
@@ -23,7 +12,7 @@ export const Container = styled.section`
 
 export const HeroImgWrapper = styled.div`
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     border-radius: ${p => p.theme.radii.m};
     background-image: url(${heroImg});
     background-repeat: no-repeat;
@@ -44,5 +33,4 @@ export const HomeTitle = styled.h1`
     font-weight: ${p => p.theme.fontWeight.l};
     color: ${p => p.theme.colors.mainFont};
     margin-bottom: 100px;
-    animation: ${titleAnimation} 1s;
 `

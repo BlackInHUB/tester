@@ -5,9 +5,11 @@ export const Main = styled.main`
     background-color: ${p => p.theme.colors.mainBG};
     box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.2);
     width: 80%;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    /* flex-direction: column;
+    justify-content: space-between; */
 `
