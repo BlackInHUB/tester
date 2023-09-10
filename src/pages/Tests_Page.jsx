@@ -1,4 +1,4 @@
-import { TestsContent } from "../components/TestSContent/TestsContent";
+import { TestsContent } from "../components/TestsContent/TestsContent";
 
 const TestSPage = () => {
     return (

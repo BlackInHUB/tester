@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { CreateTest } from "../CreateTest/CreateTest";
 import { create, getCategories, getTests } from "../../services/testsApi";
 import { useApp } from "../../appContext";
-import { TestsList } from "../TestSList/TestsList";
+import { TestsList } from "../TestsList/TestsList";
 import { notify } from "../../utils/notify";
 import { CategoriesSelect } from "../CategoriesSelect/CategoriesSelect";
 import { useSearchParams } from "react-router-dom";
