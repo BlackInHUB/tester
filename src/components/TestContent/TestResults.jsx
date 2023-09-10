@@ -6,7 +6,7 @@ export const TestResults = ({results, score, start, end}) => {
 
     return (
         <>
-            {results > score ? 
+            {results >= score ? 
             <TestInfoItemTitle>You passed test successfully! 🎉</TestInfoItemTitle> :
             <TestInfoItemTitle>You failed the test.. 😥</TestInfoItemTitle>
             }

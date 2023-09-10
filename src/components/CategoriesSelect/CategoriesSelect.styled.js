@@ -21,7 +21,7 @@ export const SelectBtn = styled.button`
     outline: none;
     font-family: inherit;
     padding: ${({ theme }) => theme.space[3]}px ${({ theme }) => theme.space[4]}px;
-    border: ${({ theme }) => theme.borders.s} ${({ theme }) => theme.colors.hover};
+    border: ${({ theme }) => theme.borders.s} ${p => p.open ? p.theme.colors.active : p.theme.colors.hover};
     border-radius: ${({ theme }) => theme.radii.s};
     background-color: ${({ theme }) => theme.colors.secondaryBG};
     cursor: pointer;
@@ -30,8 +30,8 @@ export const SelectBtn = styled.button`
 
     &:hover,
     :focus-visible {
-        /* border-color: ${p => p.theme.colors.hover};
-        background-color: ${p => p.theme.colors.secondaryBG}; */
+        border-color: ${({ theme }) => theme.colors.active};
+        background-color: ${p => p.theme.colors.secondaryBG};
     };
 `
 

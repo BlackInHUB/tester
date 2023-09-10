@@ -10,6 +10,14 @@ export const Test = styled.div`
     height: 100%;
 `;
 
+export const TopWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: ${({ theme }) => theme.space[4]}px;
+`
+
 export const BottomWrapper = styled.div`
     display: flex;
     flex-direction: column;

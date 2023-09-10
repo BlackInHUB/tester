@@ -41,8 +41,8 @@ export const TestsContent = () => {
     };
 
     const createTestSubmit = (test) => {
-        toggleModal();
         create(test).then(response => setTests(tests => {return [response, ...tests]}));
+        toggleModal();
         notify('success', 'Test successfully created!')
     };
 
@@ -52,7 +52,7 @@ export const TestsContent = () => {
             {tests?.length > 0 && <SectionTitle>Available Tests:</SectionTitle>}
             <CategoriesSelect chosen={chosen} setChosen={setChosen} options={categories} />
             {tests?.length > 0 && <TestsList tests={tests} />}
-            {open && <Modal categories={categories} toggleModal={toggleModal} children={<CreateTest onSubmit={createTestSubmit} />} />}
+            {open && <Modal toggleModal={toggleModal} children={<CreateTest onSubmit={createTestSubmit} cat={categories} />} />}
         </Container>
     )
 };

@@ -34,7 +34,7 @@ export const CategoriesSelect = ({options, chosen, setChosen}) => {
     return (
         <Container>
             <SelectLabel>Choose category</SelectLabel>
-            <SelectBtn onClick={toggleOpen} >
+            <SelectBtn open={open} onClick={toggleOpen} >
                 <SelectValue>{chosen.name}</SelectValue>
                 <SelectIcon open={open} as={SlArrowDown} />
             </SelectBtn>
