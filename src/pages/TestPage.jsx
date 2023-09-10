@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TestContent } from "../components/TestContent/TestContent";
-import { getTest } from "../services/testsApi";
+import * as testsApi from "../services/testsApi";
 import { useParams } from "react-router-dom";
 
 const TestPage = () => {
@@ -8,12 +8,16 @@ const TestPage = () => {
     const {_id} = useParams();
 
     useEffect(() => {
-        getTest(_id).then(setTest);
+        testsApi.getTest(_id).then(setTest);
     }, [_id]);
+
+    const sendResults = (results) => {
+        testsApi.sendResults(_id, results)
+    };
 
     return (
         <>
-            {test && <TestContent test={test} />}
+            {test && <TestContent sendResults={sendResults} test={test} />}
         </>
     );
 };

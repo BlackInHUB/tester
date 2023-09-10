@@ -41,9 +41,19 @@ const getTest = async (_id) => {
     };
 };
 
+const sendResults = async (_id, results) => {
+    try {
+        await instance.patch(`/tests/sendresults/${_id}`, results);
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
+    };
+};
+
 export {
     create,
     upload,
     getTests,
-    getTest
+    getTest,
+    sendResults
 };

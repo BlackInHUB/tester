@@ -5,8 +5,9 @@ import { TestList } from "../TestList/TestList"
 import { TestInfo } from "./TestInfo";
 import { TestResults } from "./TestResults";
 import { useNavigate } from "react-router-dom";
+import { getStatus } from "../helpers/helpers";
 
-export const TestContent = ({test}) => {
+export const TestContent = ({test, sendResults}) => {
     const {questions, options} = test;
     const [start, setStart] = useState(null);
     const [end, setEnd] = useState(null);
@@ -14,6 +15,7 @@ export const TestContent = ({test}) => {
     const [userAnswers, setUserAnswers] = useState([]);
     const [userScore, setUserScore] = useState(null);
     const navigate = useNavigate();
+
 
     const handleAnswersChange = (e, questionId) => {
         const isMultiple = questions.find(q => q.id === questionId).multiple > 1;
@@ -91,9 +93,11 @@ export const TestContent = ({test}) => {
 
     const handleDoneClick = () => {
         const correctAnswers = getResults(questions, userAnswers);
-        const score = Number((correctAnswers / questions.length * 100).toFixed());
-        setUserScore(score);
+        const userScore = Number((correctAnswers / questions.length * 100).toFixed());
+        setUserScore(userScore);
         setEnd(Date.now());
+        const status = getStatus(userScore, options.score);
+        sendResults({answers: userAnswers, score: userScore, status, time: Date.now() - start});
     };
 
     const handleToTestClick = () => {

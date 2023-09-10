@@ -19,8 +19,20 @@ const getTime = (ms) => {
     };
 };
 
+const getStatus = (score, testScore) => {
+    console.log(testScore);
+    if (!testScore) {
+        return 'complited'
+    } else if (score >= testScore) {
+        return 'success';
+    } else {
+        return 'fail'
+    };
+};
+
 export {
     questionNumber,
     answerLetter,
-    getTime
+    getTime,
+    getStatus
 };
