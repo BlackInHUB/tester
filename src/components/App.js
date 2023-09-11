@@ -10,6 +10,7 @@ const HomePage = lazy(() => import('../pages/HomePage'));
 const AuthPage = lazy(() => import('../pages/AuthPage'));
 const TestSPage = lazy(() => import('../pages/Tests_Page'));
 const TestPage = lazy(() => import('../pages/TestPage'));
+const MyTestsPage = lazy(() => import('../pages/MyTestsPage'));
 
 function App() {
   return (
@@ -19,9 +20,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path='mytests' element={<PrivatRoute><MyTestsPage /></PrivatRoute>} />
           <Route path="authentication" element={<PublicRoute><AuthPage /></PublicRoute>} />
           <Route path="tests" element={<PrivatRoute><TestSPage /></PrivatRoute>} />
-          <Route path='test/:_id' element={<TestPage />} />
+          <Route path='test/:_id' element={<PrivatRoute><TestPage /></PrivatRoute>} />
         </Route>
       </Routes>
     </>

@@ -5,6 +5,7 @@ import { Button } from "../reusableComponents/Buttons/Button";
 import { Modal } from "../Modal/Modal";
 import { QuestionsList } from "../QuestionsList/QuestionsList";
 import { CategoriesSelect } from "../CategoriesSelect/CategoriesSelect";
+import { notify } from "../../utils/notify";
 
 export const CreateTest = ({onSubmit, cat}) => {
     const [questions, setQuestions] = useState([]);
@@ -17,7 +18,7 @@ export const CreateTest = ({onSubmit, cat}) => {
         setOpen(o => !o);
     };
 
-    const submitQuestionAdd = (newQ) => {
+    const handleAddQuestion = (newQ) => {
         setQuestions(questions => [...questions, newQ])
     };
 
@@ -28,6 +29,16 @@ export const CreateTest = ({onSubmit, cat}) => {
     const handleOptionsChange = (e) => {
         const {name, value} = e.target;
         setOptions(o => {return {...o, [name]: value}});
+    };
+
+    const handleCreateSubmit = () => {
+        const {score, time} = options;
+        
+        if((score <= 0 || isNaN(score)) || (time <= 0 || isNaN(time))) {
+            return notify('error', 'Options must be positive numbers!')
+        };
+        
+        onSubmit({questions, options, category: chosenCategory.name});
     };
 
     return (
@@ -46,9 +57,9 @@ export const CreateTest = ({onSubmit, cat}) => {
                     <OptionInput onChange={handleOptionsChange} name='time' type='text' />
                 </OptionLabel>
             </Options>
-            <Button disabled={questions.length <= 0} onClick={() => onSubmit({questions, options, category: chosenCategory.name})} $mt='20px' $w='fit-content' type='button' text='Create Test' $bgColor='green' $color='mainFont' />
+            <Button disabled={questions.length <= 0} onClick={handleCreateSubmit} $mt='20px' $w='fit-content' type='button' text='Create Test' $bgColor='green' $color='mainFont' />
             </BottomWrapper>
-            {open && <Modal $w='60%' $h='70%' toggleModal={toggleModal} children={<TestQuestion handleSubmit={submitQuestionAdd} toggleModal={toggleModal} />} />}
+            {open && <Modal $w='60%' $h='70%' toggleModal={toggleModal} children={<TestQuestion handleSubmit={handleAddQuestion} toggleModal={toggleModal} />} />}
         </Test>
     )
 }

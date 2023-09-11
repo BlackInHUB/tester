@@ -60,5 +60,13 @@ export const AnswersList = styled.ul`
 `;
 
 export const AnswersListItem = styled.li`
-
+    display: flex;
+    align-items: center;
 `
+
+export const StyledIcon = styled.svg`
+    fill: ${({ theme }) => theme.colors.greenHover};
+    width: 20px;
+    height: 20px;
+    margin-left: ${({ theme }) => theme.space[3]}px;
+`;

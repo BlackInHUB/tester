@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { Button } from "../reusableComponents/Buttons/Button";
 import { upload } from "../../services/testsApi";
 import { IconButton } from "../reusableComponents/Buttons/IconButton";
+import { notify } from "../../utils/notify";
 
 export const TestQuestion = ({handleSubmit, toggleModal}) => {
     const [question, setQuestion] = useState('');
@@ -61,6 +62,17 @@ export const TestQuestion = ({handleSubmit, toggleModal}) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         let image;
+
+        if (answers.length < 2) {
+            return notify('error', 'Question must have at lest 2 answers!');
+        };
+        if (answers.find(a => a.answer === '')) {
+            return notify('error', 'Answers must not be empty!');
+        };
+        if (!answers.find(a => a.correct)) {
+            return notify('error', 'You must mark at least 1 correct answer!');
+        };
+
         if (file) {
             const data = new FormData();
             data.append('image', file);
