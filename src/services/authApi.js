@@ -17,7 +17,7 @@ const register = async (authData) => {
         const {data} = await instance.post('/auth/register', authData);
         return data;
     } catch ({response}) {
-        notify('error', response.data.message)
+        notify('error', response.data.message);
         console.log(response.data.message);
     };
 };

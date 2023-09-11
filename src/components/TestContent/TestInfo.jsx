@@ -1,8 +1,11 @@
 import { useApp } from "../../appContext";
+import { getTime } from "../helpers/helpers";
 import { TestInfoList, TestInfoListItem, TestInfoItemTitle, InfoText } from "./TestContent.styled";
 
 export const TestInfo = ({test}) => {
     const {users} = useApp();
+    if (!test) {return};
+
     const {author, questions, options, category, maxScore, bestTime} = test;
     const {score, time} = options;
     
@@ -33,7 +36,7 @@ export const TestInfo = ({test}) => {
                 <TestInfoItemTitle>Max score:<InfoText>{maxScore ? `${maxScore}%` : '-'}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             <TestInfoListItem>
-                <TestInfoItemTitle>Best time:<InfoText>{bestTime ? `${bestTime}` : '-'}</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>Best time:<InfoText>{bestTime ? `${getTime(bestTime)}` : '-'}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
         </TestInfoList>
     )

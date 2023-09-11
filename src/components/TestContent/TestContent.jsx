@@ -16,7 +16,6 @@ export const TestContent = ({test, sendResults}) => {
     const [userScore, setUserScore] = useState(null);
     const navigate = useNavigate();
 
-
     const handleAnswersChange = (e, questionId) => {
         const isMultiple = questions.find(q => q.id === questionId).multiple > 1;
         const {id: answerId} = e.target;
@@ -104,7 +103,7 @@ export const TestContent = ({test, sendResults}) => {
         navigate('/tests', {replace: true});
     };
 
-    const doneBtnShow = userAnswers.length === questions.length;
+    const doneBtnShow = userAnswers.length === questions?.length;
 
     return(
         <Container>

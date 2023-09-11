@@ -8,7 +8,7 @@ const TestPage = () => {
     const {_id} = useParams();
 
     useEffect(() => {
-        testsApi.getTest(_id).then(setTest);
+        testsApi.getTest(_id).then(response => setTest(...response));
     }, [_id]);
 
     const sendResults = (results) => {
