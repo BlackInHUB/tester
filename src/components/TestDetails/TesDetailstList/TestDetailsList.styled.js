@@ -23,6 +23,11 @@ export const ListItem = styled.li`
     }
 `;
 
+export const TitleContainer = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
 export const Title = styled.p`
     display: block;
     color: ${({ theme }) => theme.colors.secondaryFont};
@@ -31,4 +36,26 @@ export const Title = styled.p`
 export const Item = styled.p`
     display: block;
     color: ${props => props.$status === 'success' ? props.theme.colors.greenHover : props.$status === 'fail' ? props.theme.colors.active : 'inherit'};
-`
+`;
+
+export const SortBtn = styled.button`
+    outline: none;
+    background-color: transparent;
+    padding: ${({ theme }) => theme.space[2]}px;
+    margin-left: ${({ theme }) => theme.space[2]}px;
+`;
+
+export const StyledIcon = styled.svg`
+    width: 15px;
+    height: 15px;
+    fill: ${({ theme }) => theme.colors.secondaryFont};
+    vertical-align: top;
+
+    ${SortBtn}:hover & {
+        fill: ${({ theme }) => theme.colors.active};
+    };
+
+    ${SortBtn}:focus-visible & {
+        fill: ${({ theme }) => theme.colors.active};
+    };
+`;
