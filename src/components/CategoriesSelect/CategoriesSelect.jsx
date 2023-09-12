@@ -29,7 +29,7 @@ export const CategoriesSelect = ({options, chosen, setChosen}) => {
         return () => {document.removeEventListener('mousedown', handleClick)};
     }, [open]);
 
-    useEscapeKey(toggleOpen);
+    useEscapeKey(() => setOpen(false));
 
     return (
         <Container>

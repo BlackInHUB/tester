@@ -1,15 +1,9 @@
-import { useApp } from "../../appContext";
 import { getTime } from "../helpers/helpers";
 import { TestInfoList, TestInfoListItem, TestInfoItemTitle, InfoText } from "./TestContent.styled";
 
 export const TestInfo = ({test}) => {
-    const {users} = useApp();
-    if (!test) {return};
-
     const {author, questions, options, category, maxScore, bestTime} = test;
     const {score, time} = options;
-    
-    const user = users?.find(u => u._id === author);
 
     return (
         <TestInfoList>
@@ -17,7 +11,7 @@ export const TestInfo = ({test}) => {
                 <TestInfoItemTitle>Category:<InfoText>{category}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             <TestInfoListItem>
-                <TestInfoItemTitle>Author:<InfoText>{user?.name}</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>Author:<InfoText>{author.name}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             <TestInfoListItem>
                 <TestInfoItemTitle>Questions:<InfoText>{questions.length}</InfoText></TestInfoItemTitle>

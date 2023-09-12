@@ -8,7 +8,6 @@ export const useApp = () => useContext(AppContext);
 export const AppProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userData, setUserData] = useState(null);
-    const [users, setUsers] = useState(null);
     const [token, setToken] = useState(null);
 
     useEffect(() => {
@@ -21,13 +20,6 @@ export const AppProvider = ({ children }) => {
         authApi.current(token).then(response => setUserData({token, user: response}));
         setIsLoggedIn(true);
     }, [token]);
-
-    useEffect(() => {
-        if (!userData) {
-            return;
-        };
-        authApi.getUsers().then(setUsers);
-    }, [userData]);
 
     const logIn = async (authData) => {
         const user = await authApi.login(authData);
@@ -55,7 +47,7 @@ export const AppProvider = ({ children }) => {
     };
 
     return (
-        <AppContext.Provider value={{ token, users, isLoggedIn, userData, logIn, logOut, register }}>
+        <AppContext.Provider value={{ token, isLoggedIn, userData, logIn, logOut, register }}>
             {children}
         </AppContext.Provider>
     );
