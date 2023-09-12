@@ -31,9 +31,14 @@ const getStatus = (score, testScore) => {
     };
 };
 
+const getUsername = (users, id) => {
+    return users.find(u => u._id === id).name;
+};
+
 export {
     questionNumber,
     answerLetter,
     getTime,
-    getStatus
+    getStatus,
+    getUsername
 };

@@ -1,14 +1,8 @@
-import { Item, List, ListItem, Title } from "./TestDetailsList.styled";
-import {useApp} from '../../../appContext';
-import { getTime } from "../../helpers/helpers";
+import { List, ListItem, Title } from "./TestDetailsList.styled";
+import { TestDetailsListItem } from "./TestDetailsListItem";
 
 export const TestDetailsList = ({test}) => {
-    const {users} = useApp();
     const {results} = test;
-
-    const getUsername = (id) => {
-        return users.find(u => u._id === id).name;
-    };
 
     return (
         <List>
@@ -18,14 +12,7 @@ export const TestDetailsList = ({test}) => {
                 <Title>Status</Title>
                 <Title>Time</Title>
             </ListItem>
-            {results.map(({user, score, status, time}) => 
-            <ListItem>
-                <Item>{getUsername(user)}</Item>
-                <Item>{score}%</Item>
-                <Item status={status}>{status}</Item>
-                <Item>{getTime(time)}</Item>
-            </ListItem>
-            )}
+            {results.map((result, i) => <TestDetailsListItem key={i} result={result} />)}
         </List>
     )
 };
