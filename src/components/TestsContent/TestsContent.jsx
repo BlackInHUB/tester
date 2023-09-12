@@ -8,7 +8,7 @@ import { useApp } from "../../appContext";
 import { TestsList } from "../TestsList/TestsList";
 import { notify } from "../../utils/notify";
 import { CategoriesSelect } from "../CategoriesSelect/CategoriesSelect";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export const TestsContent = () => {
     const [open, setOpen] = useState(false);
@@ -17,6 +17,7 @@ export const TestsContent = () => {
     const [chosen, setChosen] = useState({name: 'All'});
     const {isLoggedIn} = useApp();
     const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         getCategories().then(response => setCategories(cat => {return [...cat, ...response]}));
@@ -46,13 +47,17 @@ export const TestsContent = () => {
         notify('success', 'Test successfully created!')
     };
 
+    const handleClick = (_id) => {
+        navigate(`/test/${_id}`, {replace: true});
+    };
+
     return (
         <Container>
             <Button onClick={toggleModal} type='button' $bgColor='hover' $color='active' $iconType='plus' $iconSize='25px' text='Create a Test' />
             <CategoriesSelect chosen={chosen} setChosen={setChosen} options={categories} />
             {tests?.length <= 0 && <Sorry><SorryText>Sorry, but we have no tests in category <SorryCategory>{chosen.name}</SorryCategory> yet :(</SorryText></Sorry>}
             {tests?.length > 0 && <SectionTitle>Available Tests:</SectionTitle>}
-            {tests?.length > 0 && <TestsList tests={tests} />}
+            {tests?.length > 0 && <TestsList handleClick={handleClick} tests={tests} />}
             {open && <Modal toggleModal={toggleModal} children={<CreateTest onSubmit={createTestSubmit} cat={categories} />} />}
         </Container>
     )

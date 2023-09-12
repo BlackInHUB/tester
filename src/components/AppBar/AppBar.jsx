@@ -22,6 +22,10 @@ export const AppBar = () => {
                     <NavListItem>
                         <NavListLink to='/authentication'>Account</NavListLink>
                     </NavListItem>}
+                    {isLoggedIn && 
+                    <NavListItem>
+                        <NavListLink to='/mytests'>My Tests</NavListLink>
+                    </NavListItem>}
                 </NavList>
             </Nav>
             </NavWrapper>

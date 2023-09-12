@@ -9,17 +9,18 @@ export const AppProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userData, setUserData] = useState(null);
     const [users, setUsers] = useState(null);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
-        const localToken = localStorage.getItem('token');
+        setToken(JSON.parse(localStorage.getItem('token')))
 
-        if (!localToken || localToken === '') {
+        if (!token || token === '') {
             return;
         };
 
-        authApi.current(JSON.parse(localToken)).then(response => setUserData(data => {return {...data, user: response}}));
+        authApi.current(token).then(response => setUserData({token, user: response}));
         setIsLoggedIn(true);
-    }, []);
+    }, [token]);
 
     useEffect(() => {
         if (!userData) {
@@ -54,7 +55,7 @@ export const AppProvider = ({ children }) => {
     };
 
     return (
-        <AppContext.Provider value={{ users, isLoggedIn, userData, logIn, logOut, register }}>
+        <AppContext.Provider value={{ token, users, isLoggedIn, userData, logIn, logOut, register }}>
             {children}
         </AppContext.Provider>
     );

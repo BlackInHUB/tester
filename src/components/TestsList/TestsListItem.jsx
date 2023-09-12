@@ -1,22 +1,17 @@
-import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../appContext';
 import {ListItem, Title, Text} from './TestsList.styled';
 import { getTime } from '../helpers/helpers';
 
-export const TestsListItem = ({test}) => {
+export const TestsListItem = ({test, handleClick}) => {
     const {users} = useApp();
     const {author, _id, questions, options, passedUsers, maxScore, bestTime, category} = test;
     const {score, time} = options
-    const navigate = useNavigate();
+
 
     const {name} = users?.find(u => u._id === author);
 
-    const handleClick = () => {
-        navigate(`/test/${_id}`, {replace: true});
-    };
-
     return (
-        <ListItem onClick={handleClick}>
+        <ListItem onClick={() => handleClick(_id)}>
             <Title>Category: <Text>{category}</Text></Title>
             <Title>Questions: <Text>{questions}</Text></Title>
             <Title>Author: <Text>{name}</Text></Title>

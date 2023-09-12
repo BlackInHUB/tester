@@ -61,11 +61,44 @@ const getCategories = async () => {
     };
 };
 
+const getUserCreatedTests = async () => {
+    try {
+        const {data} = await instance.get('/tests/created/');
+        return data;
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
+    };
+};
+
+const getUserPassedTests = async () => {
+    try {
+        const {data} = await instance.get('/tests/passed/');
+        return data;
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
+    };
+};
+
+const getTestDetails = async (_id) => {
+    try {
+        const {data} = await instance.get(`/tests/details/${_id}`);
+        return data;
+    } catch ({response}) {
+        notify('error', response.data.message)
+        console.log(response.data.message);
+    };
+};
+
 export {
     create,
     upload,
     getTests,
     getTest,
     sendResults,
-    getCategories
+    getCategories,
+    getUserCreatedTests,
+    getUserPassedTests,
+    getTestDetails
 };
