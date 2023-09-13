@@ -1,13 +1,24 @@
-import { TestsList } from "../../TestsList/TestsList";
+import { useEffect, useState } from "react";
+import { UsersPassedTestsList } from "../../UsersTestsList/UsersTestsList";
 import { Container } from "./UserTests.styled";
+import { getUserPassedTests } from "../../../services/testsApi";
 
-const Passed = ({tests}) => {
+const Passed = () => {
+    const [tests, setTests] = useState(null);
+    const titles = [
+        'Category',
+        'Author',
+        'Passed',
+        'Best Score'
+    ];
 
-    console.log(tests);
+    useEffect(() => {
+        getUserPassedTests().then(setTests);
+    }, []);
 
     return (
         <Container>
-            {/* {tests && <TestsList tests={tests} />} */}
+            {tests && <UsersPassedTestsList $col='4' titles={titles} tests={tests} />}
         </Container>
     )
 };

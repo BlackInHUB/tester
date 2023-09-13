@@ -7,6 +7,7 @@ export const IconBtn = styled.button`
     position: ${props => props.$position ? props.$position : 'static'};
     top: ${props => props.$top ? props.$top : null};
     right: ${props => props.$right ? props.$right : null};
+    left: ${props => props.$left ? props.$left : null};
     margin: 0 auto;
     transition: ${({ theme }) => theme.transition.all};
 

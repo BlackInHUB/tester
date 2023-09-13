@@ -9,7 +9,6 @@ export const AppProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState(null);
-    console.log(isLoading);
 
     useEffect(() => {
         setIsLoading(true);

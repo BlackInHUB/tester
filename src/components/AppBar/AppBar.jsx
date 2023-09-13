@@ -4,7 +4,7 @@ import { UserNav } from "./UserNav";
 import {SiTestcafe} from 'react-icons/si';
 
 export const AppBar = () => {
-    const {isLoggedIn} = useApp();
+    const {isLoggedIn, isLoading} = useApp();
 
     return (
         <Container>
@@ -18,7 +18,7 @@ export const AppBar = () => {
                     <NavListItem>
                         <NavListLink to='/tests'>Tests</NavListLink>
                     </NavListItem>
-                    {!isLoggedIn && 
+                    {!isLoggedIn && !isLoading && 
                     <NavListItem>
                         <NavListLink to='/authentication'>Account</NavListLink>
                     </NavListItem>}

@@ -1,15 +1,15 @@
-import { useOutletContext } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Created from "./UserTests/Created";
 import Passed from "./UserTests/Passed";
 
 const MyTests = () => {
-    const {tests, params} = useOutletContext();
+    const params = useParams();
     const {userstests} = params;
     
     return (
         <>
-            {userstests === 'created' && <Created tests={tests} />}
-            {userstests === 'passed' && <Passed tests={tests} />}
+            {userstests === 'created' && <Created />}
+            {userstests === 'passed' && <Passed />}
         </>
     )
 };

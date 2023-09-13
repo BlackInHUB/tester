@@ -54,6 +54,8 @@ export const TestsContent = () => {
         navigate(`/test/${_id}`, {replace: true});
     };
 
+    // console.log(isLoading);
+
     return (
         <Container>
             <Button onClick={toggleModal} type='button' $bgColor='hover' $color='active' $iconType='plus' $iconSize='25px' text='Create a Test' />

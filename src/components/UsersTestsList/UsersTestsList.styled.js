@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 export const Container = styled.section`
     width: 80%;
-    /* height: 100%; */
     display: flex;
     flex-direction: column;
     padding-top: ${({ theme }) => theme.space[8]}px;
@@ -17,17 +16,9 @@ export const TestsList = styled.ul`
     flex-direction: column;
 `;
 
-
-export const Title = styled.p`
-    display: block;
-    color: ${({ theme }) => theme.colors.secondaryFont};
-`;
-
 export const TestsListItem = styled.li`
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(5, 20%);
-    justify-items: center;
     padding: ${({ theme }) => theme.space[3]}px 0;
 
     &:first-child {
@@ -37,7 +28,28 @@ export const TestsListItem = styled.li`
 
     &:not(:last-child) {
         border-bottom: ${({ theme }) => theme.borders.m} ${({ theme }) => theme.colors.hover};
+    };
+
+    &:not(:first-child) {
+        grid-template-columns: repeat(${props => props.$col}, ${props => props.$col && `${100 / props.$col}%`});
+        justify-items: center;
     }
+`;
+
+export const TitlesList = styled.ul`
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(${props => props.$col}, ${props => props.$col && `${100 / props.$col}%`});
+    justify-items: center;
+`;
+
+export const TitlesListItem = styled.li`
+    
+`;
+
+export const Title = styled.p`
+    display: block;
+    color: ${({ theme }) => theme.colors.secondaryFont};
 `;
 
 export const Item = styled.p`
