@@ -7,28 +7,35 @@ export const useApp = () => useContext(AppContext);
 
 export const AppProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState(null);
-    const [token, setToken] = useState(null);
+    console.log(isLoading);
 
     useEffect(() => {
-        setToken(JSON.parse(localStorage.getItem('token')))
+        setIsLoading(true);
+        const localToken = localStorage.getItem('token');
 
-        if (!token || token === '') {
+        if (!localToken || localToken === '') {
             return;
         };
 
-        authApi.current(token).then(response => setUserData({token, user: response}));
-        setIsLoggedIn(true);
-    }, [token]);
+        authApi.current(JSON.parse(localToken)).then(response => {
+            setUserData({token: JSON.parse(localToken), user: response});
+            setIsLoggedIn(true);
+        }).finally(() => {
+            setIsLoading(false);
+        });
+    }, []);
 
-    const logIn = async (authData) => {
-        const user = await authApi.login(authData);
-        if (!user) {
-            return;
-        };
-        setUserData(user);
-        localStorage.setItem('token', JSON.stringify(user.token));
-        setIsLoggedIn(true);
+    const logIn = (authData) => {
+        setIsLoading(true);
+        authApi.login(authData).then(response => {
+            setUserData(response);
+            localStorage.setItem('token', JSON.stringify(response.token));
+            setIsLoggedIn(true);
+        }).finally(() => {
+            setIsLoading(false);
+        });
     };
 
     const register = (authData) => {
@@ -47,7 +54,7 @@ export const AppProvider = ({ children }) => {
     };
 
     return (
-        <AppContext.Provider value={{ token, isLoggedIn, userData, logIn, logOut, register }}>
+        <AppContext.Provider value={{ isLoggedIn, userData, logIn, logOut, register, isLoading, setIsLoading }}>
             {children}
         </AppContext.Provider>
     );

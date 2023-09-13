@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import * as testsApi from '../services/testsApi.js';
+import {Loader} from '../components/Loader/Loader';
 
 const MyTestsPage = () => {
     const params = useParams();
@@ -26,7 +27,7 @@ const MyTestsPage = () => {
                 <NavigationLink to='created'>Created</NavigationLink>
                 <NavigationLink to='passed'>Passed</NavigationLink>
             </NavWrapper>
-            <Suspense fallback={null}>
+            <Suspense fallback={<Loader $size='50px' />}>
                 <Outlet context={{tests, params}} />
             </Suspense>
         </Container>

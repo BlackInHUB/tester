@@ -23,7 +23,7 @@ export const TestInfo = ({test}) => {
             }
             {time && 
             <TestInfoListItem>
-                <TestInfoItemTitle>Time for test:<InfoText>{time} minutes</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>Time limit:<InfoText>{time} minutes</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             }
             <TestInfoListItem>

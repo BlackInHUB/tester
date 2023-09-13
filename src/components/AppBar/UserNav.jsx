@@ -6,11 +6,11 @@ import { useApp } from '../../appContext';
 export const UserNav = () => {
     const {logOut, userData} = useApp();
 
-    if (!userData) {
+    const {user} = userData;
+
+    if(!user) {
         return;
     };
-
-    const {user} = userData;
 
     return (
         <UserNavWrapper>

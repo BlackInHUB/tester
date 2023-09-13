@@ -7,7 +7,7 @@ const Passed = ({tests}) => {
 
     return (
         <Container>
-            {tests && <TestsList tests={tests} />}
+            {/* {tests && <TestsList tests={tests} />} */}
         </Container>
     )
 };

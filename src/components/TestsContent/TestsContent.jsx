@@ -15,27 +15,30 @@ export const TestsContent = () => {
     const [tests, setTests] = useState([]);
     const [categories, setCategories] = useState([{name: 'All'}]);
     const [chosen, setChosen] = useState({name: 'All'});
-    const {isLoggedIn} = useApp();
+    const {setIsLoading, isLoading} = useApp();
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
 
     useEffect(() => {
-        getCategories().then(response => setCategories(cat => {return [...cat, ...response]}));
-    }, []);
+        if (open) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        };
+    }, [open]);
 
     useEffect(() => {
-        if (!isLoggedIn) {
-            return;
-        };
+        setIsLoading(true);
+        getCategories().then(response => setCategories(cat => {return [...cat, ...response]}));
 
         if (chosen.name === 'All') {
-            getTests().then(setTests);
+            getTests().then(setTests).finally(setIsLoading(false));
         } else {
             setSearchParams(`category=${chosen.name}`);
-            getTests(searchParams).then(setTests);
+            getTests(searchParams).then(setTests).finally(setIsLoading(false));
         }
         
-    }, [chosen, isLoggedIn, searchParams, setSearchParams]);
+    }, [chosen, searchParams, setIsLoading, setSearchParams]);
 
     const toggleModal = () => {
         setOpen(o => !o);
@@ -55,7 +58,7 @@ export const TestsContent = () => {
         <Container>
             <Button onClick={toggleModal} type='button' $bgColor='hover' $color='active' $iconType='plus' $iconSize='25px' text='Create a Test' />
             <CategoriesSelect chosen={chosen} setChosen={setChosen} options={categories} />
-            {tests?.length <= 0 && <Sorry><SorryText>Sorry, but we have no tests in category <SorryCategory>{chosen.name}</SorryCategory> yet :(</SorryText></Sorry>}
+            {tests?.length <= 0 && !isLoading && <Sorry><SorryText>Sorry, but we have no tests in category <SorryCategory>{chosen.name}</SorryCategory> yet :(</SorryText></Sorry>}
             {tests?.length > 0 && <SectionTitle>Available Tests:</SectionTitle>}
             {tests?.length > 0 && <TestsList handleClick={handleClick} tests={tests} />}
             {open && <Modal toggleModal={toggleModal} children={<CreateTest onSubmit={createTestSubmit} cat={categories} />} />}

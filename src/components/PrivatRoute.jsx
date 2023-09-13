@@ -3,11 +3,9 @@ import { Navigate } from "react-router-dom";
 import { notify } from "../utils/notify";
 
 export const PrivatRoute = ({children}) => {
-    const {isLoggedIn, token} = useApp();
+    const {isLoggedIn, isLoading} = useApp();
 
-    if (!isLoggedIn || !token) {
-        notify('error', 'You need log in to access tests.')
-    };
+    const navigate = !isLoggedIn && !isLoading ? true : false;
 
-    return !isLoggedIn ? <Navigate to='/'/> : children;
+    return navigate ? (notify('error', 'You need log in!'), <Navigate to='/'/>) : children;
 };

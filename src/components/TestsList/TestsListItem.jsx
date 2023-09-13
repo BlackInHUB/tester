@@ -13,7 +13,7 @@ export const TestsListItem = ({test, handleClick}) => {
             <Title>Passed by: <Text>{passedUsers === 0 ? 'noone :(' : passedUsers > 1 ? `${passedUsers} users` : '1 user'}</Text></Title>
             <Title>Passing score: <Text>{score ? `${score}%` : 'not specified'}</Text></Title>
             <Title>Max score: <Text>{maxScore ? `${maxScore}%` : '-'}</Text></Title>
-            <Title>Time for test: <Text>{time ? `${time} minutes` : 'unlimited'}</Text></Title>
+            <Title>Time limit: <Text>{time ? `${time} minutes` : 'unlimited'}</Text></Title>
             <Title>Best time: <Text>{bestTime ? `${getTime(bestTime)}` : '-'}</Text></Title>
         </ListItem>
     )
