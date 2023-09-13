@@ -6,6 +6,7 @@ import { TestInfo } from "./TestInfo";
 import { TestResults } from "./TestResults";
 import { useNavigate } from "react-router-dom";
 import { getStatus } from "../helpers/helpers";
+import { Timer } from "../Timer/Timer";
 
 export const TestContent = ({test, sendResults}) => {
     const {questions, options} = test;
@@ -53,7 +54,7 @@ export const TestContent = ({test, sendResults}) => {
     };
 
     const handleStart = () => {
-        setStart(Date.now());
+        setStart(new Date().getTime());
     };
 
     const nextPrevQuestion = (e) => {
@@ -90,13 +91,22 @@ export const TestContent = ({test, sendResults}) => {
         return count;
     };
 
-    const handleDoneClick = () => {
+    const finishTest = () => {
         const correctAnswers = getResults(questions, userAnswers);
         const userScore = Number((correctAnswers / questions.length * 100).toFixed());
         setUserScore(userScore);
-        setEnd(Date.now());
         const status = getStatus(userScore, options.score);
         sendResults({answers: userAnswers, score: userScore, status, time: Date.now() - start});
+    };
+
+    const handleTestDoneClick = () => {
+        setEnd(new Date().getTime());
+        finishTest();
+    };
+
+    const timeIsUp = () => {
+        finishTest();
+        setEnd(new Date().getTime());
     };
 
     const handleToTestClick = () => {
@@ -119,14 +129,13 @@ export const TestContent = ({test, sendResults}) => {
             </Wrapper>}
             {start && !end && 
             <TestContainer>
-                <>
+                    {options.time && <Timer timeIsUp={timeIsUp} start={start} limit={test.options.time} />}
                     <TestList userAnswers={userAnswers} getAnswers={handleAnswersChange} questions={questions} shown={qShown} />
                     <BtnsWrapper>
                         <Button disabled={qShown <= 0} type='button' name='prev' text='Prev' $bgColor='hover' $color='active' onClick={nextPrevQuestion} />
-                        {doneBtnShow && <Button onClick={handleDoneClick} type='button' $bgColor='green' $color='mainFont' text='Done' />}
+                        {doneBtnShow && <Button onClick={handleTestDoneClick} type='button' $bgColor='green' $color='mainFont' text='Done' />}
                         <Button disabled={qShown === questions.length - 1} type='button' name='next' text='Next' $bgColor='hover' $color='active' onClick={nextPrevQuestion} />
                     </BtnsWrapper>
-                </>
             </TestContainer>}
         </Container>
     )

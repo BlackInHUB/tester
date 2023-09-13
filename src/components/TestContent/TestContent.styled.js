@@ -12,6 +12,7 @@ export const Container = styled.section`
 `;
 
 export const TestContainer = styled.div`
+    position: relative;
     padding: ${({ theme }) => theme.space[6]}px;
     width: 50%;
     height: 100%;

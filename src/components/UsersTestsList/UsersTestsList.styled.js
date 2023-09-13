@@ -19,21 +19,16 @@ export const TestsList = styled.ul`
 export const TestsListItem = styled.li`
     width: 100%;
     display: grid;
-    padding: ${({ theme }) => theme.space[3]}px 0;
-
-    &:first-child {
-        border-color: ${({ theme }) => theme.colors.secondaryFont};
-        margin-bottom: ${({ theme }) => theme.space[3]}px;
-    };
-
-    &:not(:last-child) {
-        border-bottom: ${({ theme }) => theme.borders.m} ${({ theme }) => theme.colors.hover};
-    };
 
     &:not(:first-child) {
         grid-template-columns: repeat(${props => props.$col}, ${props => props.$col && `${100 / props.$col}%`});
         justify-items: center;
-    }
+        padding: ${({ theme }) => theme.space[3]}px 0;
+    };
+
+    &:not(:last-child):not(:first-child) {
+        border-bottom: ${({ theme }) => theme.borders.m} ${({ theme }) => theme.colors.hover};
+    };
 `;
 
 export const TitlesList = styled.ul`
@@ -41,6 +36,8 @@ export const TitlesList = styled.ul`
     display: grid;
     grid-template-columns: repeat(${props => props.$col}, ${props => props.$col && `${100 / props.$col}%`});
     justify-items: center;
+    padding: ${({ theme }) => theme.space[3]}px 0;
+    border-bottom: ${({ theme }) => theme.borders.m} ${({ theme }) => theme.colors.secondaryFont};
 `;
 
 export const TitlesListItem = styled.li`
