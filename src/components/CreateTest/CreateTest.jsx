@@ -30,12 +30,12 @@ export const CreateTest = ({onSubmit, cat}) => {
         const {name, value} = e.target;
         setOptions(o => {return {...o, [name]: value}});
     };
-
+    
     const handleCreateSubmit = () => {
         const {score, time} = options;
         
-        if((score <= 0 || isNaN(score)) || (time <= 0 || isNaN(time))) {
-            return notify('error', 'Options must be positive numbers!')
+        if(((score && score <= 0) || (score && isNaN(score))) || ((time && time <= 0) || (time && isNaN(time)))) {
+            return notify('error', 'Options must be positive numbers!');
         };
         
         onSubmit({questions, options, category: chosenCategory.name});
@@ -53,7 +53,7 @@ export const CreateTest = ({onSubmit, cat}) => {
                 <OptionLabel>Passing score, % (optionaly)
                     <OptionInput onChange={handleOptionsChange} name='score' type='text' />
                 </OptionLabel>
-                <OptionLabel>Time for test, m (optionaly)
+                <OptionLabel>Time for test, min (optionaly)
                     <OptionInput onChange={handleOptionsChange} name='time' type='text' />
                 </OptionLabel>
             </Options>
