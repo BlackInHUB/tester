@@ -12,8 +12,6 @@ const getTime = (ms) => {
     const minutes = parseInt((seconds / 60));
     const hours = parseInt((minutes / 60));
 
-    console.log(seconds);
-
     if (minutes <= 0 && hours <= 0) {
         return `00:00:${seconds.toString().length > 1 ? seconds : `0${seconds}`}`;
     } else if (minutes && hours <= 0) {
