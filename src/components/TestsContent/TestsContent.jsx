@@ -3,17 +3,16 @@ import { Container, SectionTitle, Sorry, SorryCategory, SorryText } from "./Test
 import { Modal } from "../Modal/Modal";
 import { useEffect, useState } from "react";
 import { CreateTest } from "../CreateTest/CreateTest";
-import { create, getCategories, getTests } from "../../services/testsApi";
+import * as testsApi from "../../services/testsApi";
 import { useApp } from "../../appContext";
 import { TestsList } from "../TestsList/TestsList";
 import { notify } from "../../utils/notify";
 import { CategoriesSelect } from "../CategoriesSelect/CategoriesSelect";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-export const TestsContent = () => {
+export const TestsContent = ({categories}) => {
     const [open, setOpen] = useState(false);
     const [tests, setTests] = useState([]);
-    const [categories, setCategories] = useState([{name: 'All'}]);
     const [chosen, setChosen] = useState({name: 'All'});
     const {setIsLoading, isLoading} = useApp();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -29,13 +28,12 @@ export const TestsContent = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        getCategories().then(response => setCategories(cat => {return [...cat, ...response]}));
 
         if (chosen.name === 'All') {
-            getTests().then(setTests).finally(setIsLoading(false));
+            testsApi.getTests().then(setTests).finally(setIsLoading(false));
         } else {
             setSearchParams(`category=${chosen.name}`);
-            getTests(searchParams).then(setTests).finally(setIsLoading(false));
+            testsApi.getTests(searchParams).then(setTests).finally(setIsLoading(false));
         }
         
     }, [chosen, searchParams, setIsLoading, setSearchParams]);
@@ -45,7 +43,7 @@ export const TestsContent = () => {
     };
 
     const createTestSubmit = (test) => {
-        create(test).then(response => setTests(tests => {return [response, ...tests]}));
+        testsApi.create(test).then(response => setTests(tests => {return [response, ...tests]}));
         toggleModal();
         notify('success', 'Test successfully created!')
     };
