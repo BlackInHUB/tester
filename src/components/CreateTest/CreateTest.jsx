@@ -10,6 +10,7 @@ import { notify } from "../../utils/notify";
 export const CreateTest = ({onSubmit, cat}) => {
     const [questions, setQuestions] = useState([]);
     const [open, setOpen] = useState(false);
+    const [edit, setEdit] = useState(false);
     const [options, setOptions] = useState({score: null, time: null});
     const [chosenCategory, setChosenCategory] = useState({name: 'None'});
     const categories = cat.filter(c => c.name !== 'All');
@@ -20,6 +21,10 @@ export const CreateTest = ({onSubmit, cat}) => {
 
     const handleAddQuestion = (newQ) => {
         setQuestions(questions => [...questions, newQ])
+    };
+
+    const handleEditQuestion = (newQ) => {
+        setQuestions(questions => {return questions.map(q => q.id === newQ.id ? newQ : q)});
     };
 
     const deleteQuestion = (idx) => {
@@ -41,13 +46,17 @@ export const CreateTest = ({onSubmit, cat}) => {
         onSubmit({questions, options, category: chosenCategory.name});
     };
 
+    const toggleEdit = (id) => {
+        return edit ? setEdit(null) : setEdit(id);
+    };
+
     return (
         <Test>
             <TopWrapper>
                 <CategoriesSelect options={categories} chosen={chosenCategory} setChosen={setChosenCategory} />
                 <Button $w='fit-content' onClick={toggleModal} type='button' $iconType='plus' $color='active' text='Add question' $bgColor='hover' />
             </TopWrapper>
-            {questions.length > 0 && <QuestionsList questions={questions} onDelete={deleteQuestion} />}
+            {questions.length > 0 && <QuestionsList questions={questions} editQuestion={toggleEdit} onDelete={deleteQuestion} />}
             <BottomWrapper>
             <Options>
                 <OptionLabel>Passing score, % (optionaly)
@@ -60,6 +69,7 @@ export const CreateTest = ({onSubmit, cat}) => {
             <Button disabled={questions.length <= 0} onClick={handleCreateSubmit} $mt='20px' $w='fit-content' type='button' text='Create Test' $bgColor='green' $color='mainFont' />
             </BottomWrapper>
             {open && <Modal $w='60%' $h='70%' toggleModal={toggleModal} children={<TestQuestion handleSubmit={handleAddQuestion} toggleModal={toggleModal} />} />}
+            {edit && <Modal $w='60%' $h='70%' toggleModal={toggleEdit} children={<TestQuestion handleSubmit={handleEditQuestion} edit={edit} state={questions.find(q => q.id === edit)} toggleEdit={toggleEdit} />} />}
         </Test>
     )
 }

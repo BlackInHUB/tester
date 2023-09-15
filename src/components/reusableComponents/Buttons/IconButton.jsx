@@ -1,6 +1,5 @@
 import { IconBtn, StyledIcon } from "./IconButton.styled";
-import {RiDeleteBin2Line} from 'react-icons/ri';
-import { RiFileUploadLine } from 'react-icons/ri';
+import {RiDeleteBin2Line, RiEditLine, RiFileUploadLine} from 'react-icons/ri';
 import {PiPlusSquareLight} from 'react-icons/pi';
 
 export const IconButton = ({disabled, $iconType, $type, id, $position, $top, $right, $left, $size, onClick, children}) => {
@@ -10,6 +9,7 @@ export const IconButton = ({disabled, $iconType, $type, id, $position, $top, $ri
                 $iconType === 'delete' ? RiDeleteBin2Line :
                 $iconType === 'plus' ? PiPlusSquareLight :
                 $iconType === 'upload' ? RiFileUploadLine :
+                $iconType === 'edit' ? RiEditLine :
                 null
             } />
             {children}

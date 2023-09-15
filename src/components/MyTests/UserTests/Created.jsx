@@ -16,8 +16,6 @@ const Created = () => {
         getUserCreatedTests().then(setTests);
     }, []);
 
-    console.log(tests);
-
     return (
         <Container>
             {tests && <UsersCreatedTestsList $col='5' tests={tests} titles={titles} />}

@@ -72,5 +72,9 @@ export const StyledIcon = styled.svg`
 `;
 
 export const BtnsWrapper = styled.div`
+    width: fit-content;
     display: flex;
+    justify-content: center;
+    gap: ${({ theme }) => theme.space[5]}px;
+    margin: ${({ theme }) => theme.space[4]}px auto 0;
 `;

@@ -1,4 +1,4 @@
-import { AnswersLabel, AnswersLabelSpan, BtnsWrapper, PreviewImg, QLabel, QuestionWrapper, TestForm, TestWrapper, UploadInput, UploadLabel, Question } from "./TestQuestion.styled";
+import { AnswersLabel, AnswersLabelSpan, BtnsWrapper, PreviewImg, QLabel, QuestionWrapper, TestForm, TestWrapper, UploadInput, UploadLabel, Question, UploadBtn, StyledIcon } from "./TestQuestion.styled";
 import { Answer } from "./Answer";
 import { useRef, useState } from "react";
 import { nanoid } from "nanoid";
@@ -6,11 +6,12 @@ import { Button } from "../reusableComponents/Buttons/Button";
 import { upload } from "../../services/testsApi";
 import { IconButton } from "../reusableComponents/Buttons/IconButton";
 import { notify } from "../../utils/notify";
+import {RiFileUploadLine} from 'react-icons/ri';
 
-export const TestQuestion = ({handleSubmit, toggleModal}) => {
-    const [question, setQuestion] = useState('');
+export const TestQuestion = ({handleSubmit, toggleModal, edit, state, toggleEdit}) => {
+    const [question, setQuestion] = useState(state?.question ? state.question : '');
     const [file, setFile] = useState(null);
-    const [answers, setAnswers] = useState([{id: nanoid(), answer: '', correct: false}]);
+    const [answers, setAnswers] = useState(state?.answers ? state.answers : [{id: nanoid(), answer: '', correct: false}]);
     const ref = useRef();
 
     const addAnswer = () => {
@@ -50,13 +51,19 @@ export const TestQuestion = ({handleSubmit, toggleModal}) => {
 
     const handleUpload = (e) => {
         e.preventDefault();
-        setFile(e.target.files[0]);
+        
+        if (!e.target.files[0]) {
+            return;
+        };
+
+        setFile(e.target.files[0])
     };
 
     const handleCleanUp = (e) => {
         e.preventDefault();
         setQuestion('');
         setAnswers([{id: nanoid(), answer: '', correct: false}]);
+        setFile(null);
     };
 
     const onSubmit = async (e) => {
@@ -76,12 +83,20 @@ export const TestQuestion = ({handleSubmit, toggleModal}) => {
         if (file) {
             const data = new FormData();
             data.append('image', file);
-            image = await upload(data);
+            const result = await upload(data);
+            image = result.image;
         };
         const multiple = answers.filter(a => a.correct).length;
-        handleSubmit({id: nanoid(), question, ...image, answers, multiple});
-        handleCleanUp(e);
-        toggleModal();
+        
+        if (edit) {
+            handleSubmit({id: state.id, question, image: image ? image : state.image, answers, multiple});
+            handleCleanUp(e);
+            toggleEdit();
+        } else {
+            handleSubmit({id: nanoid(), question, image, answers, multiple});
+            handleCleanUp(e);
+            toggleModal();
+        };
     };
 
     return(
@@ -91,17 +106,18 @@ export const TestQuestion = ({handleSubmit, toggleModal}) => {
                     <QLabel htmlFor='question'>Question:
                         <Question id='question' value={question} onChange={handleQuestionChange} />
                     </QLabel>
-                    <UploadLabel htmlFor='upload'>Or:
+                    <UploadLabel htmlFor='upload'>Or/And:
                         <UploadInput ref={ref} id='upload' type='file' onChange={handleUpload} />
-                        <IconButton $iconType='upload' $type='button' onClick={handleUploadClick} $size='100px' />
-                        {file && <PreviewImg src={URL.createObjectURL(file)} />}
+                        <UploadBtn type='button' onClick={handleUploadClick}>
+                            {(file || state?.image) ? <PreviewImg src={file ? URL.createObjectURL(file) : state.image} /> : <StyledIcon as={RiFileUploadLine} />}
+                        </UploadBtn>
                     </UploadLabel>
                 </QuestionWrapper>
                 <AnswersLabel>Answers:<AnswersLabelSpan>Mark correct answer (can be multiple) ✔</AnswersLabelSpan></AnswersLabel>
                 {answers.map(({id, ...value}) => <Answer length={answers.length} key={id} id={id} value={value} handleChange={handleAnswerChange} onDelete={deleteAnswer} />)}
                 <IconButton $iconType='plus' $type='button' onClick={addAnswer} $size='25px'>Add Answer</IconButton>
                 <BtnsWrapper>
-                    <Button type='submit' text='Add' $bgColor='green' $color='mainFont' $w='fit-content' />
+                    <Button type='submit' text={edit ? 'Edit' : 'Add'} $bgColor='green' $color='mainFont' $w='fit-content' />
                     <Button type='button' text='Clean up' $bgColor='hover' $color='active' $w='fit-content' onClick={handleCleanUp} />
                 </BtnsWrapper>
             </TestForm>

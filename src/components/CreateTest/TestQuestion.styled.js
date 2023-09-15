@@ -56,7 +56,8 @@ export const Question = styled.textarea`
 `;
 
 export const UploadLabel = styled.label`
-    position: relative;
+    width: 100%;
+    height: 100%;
     font-weight: ${({ theme }) => theme.fontWeight.l};
 `;
 
@@ -64,13 +65,39 @@ export const UploadInput = styled.input`
     display: none;
 `;
 
+export const UploadBtn = styled.button`
+    width: 100%;
+    height: 85%;
+    position: relative;
+    cursor: pointer;
+    display: grid;
+    justify-items: center;
+`;
+
+export const StyledIcon = styled.svg`
+    fill: ${({ theme }) => theme.colors.hover};
+    width: 100px;
+    height: 100px;
+    transition: ${({ theme }) => theme.transition.all};
+
+    ${UploadBtn}:hover & {
+        fill: ${({ theme }) => theme.colors.active};
+    };
+
+    ${UploadBtn}:focus-visible & {
+        fill: ${({ theme }) => theme.colors.active};
+    }
+`;
+
 export const PreviewImg = styled.img`
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    cursor: pointer;
 `;
 
 export const AnswersLabel = styled.p`
