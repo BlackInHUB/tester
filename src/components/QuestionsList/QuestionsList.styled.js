@@ -33,7 +33,6 @@ export const ListItemWrapper = styled.div`
 
 export const Wrapper = styled.div`
     height: 100%;
-    margin-bottom: ${({ theme }) => theme.space[3]}px;
 `;
 
 export const ImageWrapper = styled.div`

@@ -4,6 +4,7 @@ export const List = styled.ul`
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: ${({ theme }) => theme.space[5]}px;
 `;
 
 export const ListItem = styled.li`
@@ -14,11 +15,10 @@ export const ListItem = styled.li`
     padding: ${({ theme }) => theme.space[3]}px 0;
 
     &:first-child {
-        border-color: ${({ theme }) => theme.colors.secondaryFont};
-        margin-bottom: ${({ theme }) => theme.space[3]}px;
+        border-bottom: ${({ theme }) => theme.borders.m} ${({ theme }) => theme.colors.secondaryFont};
     };
 
-    &:not(:last-child) {
+    &:not(:last-child):not(:first-child) {
         border-bottom: ${({ theme }) => theme.borders.m} ${({ theme }) => theme.colors.hover};
     }
 `;

@@ -22,10 +22,12 @@ export const QuestionsList = ({questions, onDelete, editQuestion}) => {
                             <AnswersListItem key={id}>{`${helpers.answerLetter(i)}. ${answer}`}{correct && <StyledIcon as={MdOutlineDone} />}</AnswersListItem>)}
                         </AnswersList>
                     </Wrapper>
-                    <BtnsWrapper>
-                        <IconButton $type='button' $iconType='edit' onClick={() => editQuestion(qId)} />
-                        <IconButton $type='button' $iconType='delete' onClick={() => onDelete(i)} />
-                    </BtnsWrapper>
+                    {(onDelete || editQuestion) && 
+                        <BtnsWrapper>
+                            <IconButton $type='button' $iconType='edit' onClick={() => editQuestion(qId)} />
+                            <IconButton $type='button' $iconType='delete' onClick={() => onDelete(i)} />
+                        </BtnsWrapper>
+                    }
                 </ListItemWrapper>
             </ListItem>)}
         </List>

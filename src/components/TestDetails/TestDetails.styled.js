@@ -22,8 +22,8 @@ export const TestTitle = styled.p`
     font-weight: ${({ theme }) => theme.fontWeight.m};
 `;
 
-export const GoBackBtn = styled.button`
-    position: absolute;
+export const Btn = styled.button`
+    position: ${props => props.$position ? props.$position : 'static'};
     top: 0;
     left: 0;
     outline: none;
@@ -36,12 +36,13 @@ export const GoBackBtn = styled.button`
     font-family: inherit;
     font-size: ${({ theme }) => theme.fontSize[1]};
     color: inherit;
+    margin: 0 auto;
     cursor: pointer;
     transition: ${({ theme }) => theme.transition.all};
 
     &:hover {
         color: ${({ theme }) => theme.colors.active};
-    }
+    };
 `;
 
 export const StyledIcon = styled.svg`
@@ -50,7 +51,11 @@ export const StyledIcon = styled.svg`
     fill: ${({ theme }) => theme.colors.mainFont};
     transition: ${({ theme }) => theme.transition.all};
 
-    ${GoBackBtn}:hover & {
+    ${Btn}:hover & {
+        fill: ${({ theme }) => theme.colors.active};
+    };
+
+    ${Btn}:focus-visible & {
         fill: ${({ theme }) => theme.colors.active};
     };
 `;

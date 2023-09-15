@@ -48,5 +48,5 @@ export const TestDetailsList = ({test}) => {
             </ListItem>
             {results.map((result, i) => <TestDetailsListItem key={i} result={result} />)}
         </List>
-    )
+    );
 };
