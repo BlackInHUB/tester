@@ -70,3 +70,7 @@ export const StyledIcon = styled.svg`
     height: 20px;
     margin-left: ${({ theme }) => theme.space[3]}px;
 `;
+
+export const BtnsWrapper = styled.div`
+    display: flex;
+`;

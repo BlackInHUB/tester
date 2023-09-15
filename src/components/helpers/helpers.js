@@ -12,13 +12,15 @@ const getTime = (ms) => {
     const minutes = parseInt((seconds / 60));
     const hours = parseInt((minutes / 60));
 
-    if (minutes <= 0 && hours <= 0) {
-        return `00:00:${seconds.toString().length > 1 ? seconds : `0${seconds}`}`;
-    } else if (minutes && hours <= 0) {
-        return `00:${minutes.toString().length > 1 ? minutes : `0${minutes}`}:${(seconds.toString().length > 1 && seconds % 60 !== 0) ? seconds - minutes * 60 : seconds % 60 === 0 ? '00' : `0${seconds}`}`;
-    } else {
-        return `${hours.toString().length > 1 ? hours : `0${hours}`}:${(minutes.toString().length > 1 && minutes % 60 !== 0) ? minutes - hours * 60 : minutes % 60 === 0 ? '00' : `0${minutes}`}:${(seconds.toString().length > 1 && seconds % 60 !== 0) ? seconds - minutes * 60 : seconds % 60 === 0 ? '00' : `0${seconds}`}`
-    };
+    const retSeconds = (seconds.toString().length > 1 && seconds % 60 !== 0 && seconds - minutes * 60 >= 10) ? seconds - minutes * 60 :
+                        seconds % 60 === 0 ? '00' : 
+                        `0${seconds - minutes * 60}`;
+    const retMinutes = (minutes.toString().length > 1 && minutes % 60 !== 0 && minutes - hours * 60 >= 10) ? minutes - hours * 60 :
+                        minutes % 60 === 0 ? '00' : 
+                        `0${minutes - hours * 60}`;
+    const retHours = `${hours.toString().length > 1 ? hours : `0${hours}`}`;
+
+    return `${retHours}:${retMinutes}:${retSeconds}`;
 };
 
 const getStatus = (score, testScore) => {
