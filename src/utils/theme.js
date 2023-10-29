@@ -1,6 +1,6 @@
 const theme = {
     fonts: {
-        main: 'Manrope, sans-serif'
+        main: '"Comfortaa", cursive'
     },  
     colors: {
         mainBG: '#F8F8F7',
@@ -9,8 +9,8 @@ const theme = {
         secondaryFont: '#8C8C8C',
         hoveredItem: 'rgba(255, 134, 142, 0.6)',
         lightFont: '#FFFFFF',
-        hover: '#FBE0DC',
-        active: '#FF868E',
+        hover: '#a3d1ff',
+        active: '#2a5987',
         green: '#97EAB9',
         greenHover: '#03ad39',
         purple: '#B4B7FF',

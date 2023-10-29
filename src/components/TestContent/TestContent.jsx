@@ -7,6 +7,7 @@ import { TestResults } from "./TestResults";
 import { useNavigate } from "react-router-dom";
 import { getStatus } from "../helpers/helpers";
 import { Timer } from "../Timer/Timer";
+import { useApp } from "../../appContext";
 
 export const TestContent = ({test, sendResults}) => {
     const {questions, options} = test;
@@ -16,6 +17,7 @@ export const TestContent = ({test, sendResults}) => {
     const [userAnswers, setUserAnswers] = useState([]);
     const [userScore, setUserScore] = useState(null);
     const navigate = useNavigate();
+    const {language, categories} = useApp();
 
     const handleAnswersChange = (e, questionId) => {
         const isMultiple = questions.find(q => q.id === questionId).multiple > 1;
@@ -119,22 +121,22 @@ export const TestContent = ({test, sendResults}) => {
         <Container>
             {!start && !end &&
             <Wrapper>
-                <TestInfo test={test} />
-                <Button $mt='50px' onClick={handleStart} type='button' text='Start' $bgColor='green' $color='mainFont' />
+                <TestInfo language={language} categories={categories} test={test} />
+                <Button $mt='50px' onClick={handleStart} type='button' text={language === 'EN' ? 'Start' : 'Розпочати'} $bgColor='green' $color='mainFont' />
             </Wrapper>}
             {end && 
             <Wrapper>
-                <TestResults results={userScore} start={start} end={end} score={options.score} />
-                <Button type='button' $bgColor='hover' $color='active' $mt='50px' text='Back to Tests' onClick={handleToTestClick} />
+                <TestResults language={language} results={userScore} start={start} end={end} score={options.score} />
+                <Button type='button' $bgColor='hover' $color='active' $mt='50px' text={language === 'EN' ? 'Back to Tests' : 'Повернутись до Тестів'} onClick={handleToTestClick} />
             </Wrapper>}
             {start && !end && 
             <TestContainer>
                     {options.time && <Timer timeIsUp={timeIsUp} start={start} limit={test.options.time} />}
                     <TestList userAnswers={userAnswers} getAnswers={handleAnswersChange} questions={questions} shown={qShown} />
                     <BtnsWrapper>
-                        <Button disabled={qShown <= 0} type='button' name='prev' text='Prev' $bgColor='hover' $color='active' onClick={nextPrevQuestion} />
-                        {doneBtnShow && <Button onClick={handleTestDoneClick} type='button' $bgColor='green' $color='mainFont' text='Done' />}
-                        <Button disabled={qShown === questions.length - 1} type='button' name='next' text='Next' $bgColor='hover' $color='active' onClick={nextPrevQuestion} />
+                        <Button disabled={qShown <= 0} type='button' name='prev' text={language === 'EN' ? 'Prev' : 'Попереднє'} $bgColor='hover' $color='active' onClick={nextPrevQuestion} />
+                        {doneBtnShow && <Button onClick={handleTestDoneClick} type='button' $bgColor='green' $color='mainFont' text={language === 'EN' ? 'Done' : 'Завершити'} />}
+                        <Button disabled={qShown === questions.length - 1} type='button' name='next' text={language === 'EN' ? 'Next' : 'Наступне'} $bgColor='hover' $color='active' onClick={nextPrevQuestion} />
                     </BtnsWrapper>
             </TestContainer>}
         </Container>

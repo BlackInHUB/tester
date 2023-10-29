@@ -1,10 +1,13 @@
 import { useApp } from "../../appContext";
+import { LanguageSwitcher } from "../LanguageSwitcher/LanguageSwitcher";
 import { Nav, NavList, NavListItem, NavListLink, Container, Logo, LogoIcon, NavWrapper } from "./AppBar.styled";
 import { UserNav } from "./UserNav";
 import {SiTestcafe} from 'react-icons/si';
 
 export const AppBar = () => {
-    const {isLoggedIn, isLoading} = useApp();
+    const {isLoggedIn, isLoading, language} = useApp();
+
+    console.log(isLoading);
 
     return (
         <Container>
@@ -13,22 +16,23 @@ export const AppBar = () => {
             <Nav>
                 <NavList>
                     <NavListItem>
-                        <NavListLink to='/'>Home</NavListLink>
+                        <NavListLink to='/'>{language === 'EN' ? 'Home' : 'Головна'}</NavListLink>
                     </NavListItem>
                     <NavListItem>
-                        <NavListLink to='/tests'>Tests</NavListLink>
+                        <NavListLink to='/tests'>{language === 'EN' ? 'Tests' : 'Тести'}</NavListLink>
                     </NavListItem>
                     {!isLoggedIn && !isLoading && 
                     <NavListItem>
-                        <NavListLink to='/authentication'>Account</NavListLink>
+                        <NavListLink to='/authentication'>{language === 'EN' ? 'Account' : 'Акаунт'}</NavListLink>
                     </NavListItem>}
                     {isLoggedIn && 
                     <NavListItem>
-                        <NavListLink to='/mytests'>My Tests</NavListLink>
+                        <NavListLink to='/mytests'>{language === 'EN' ? 'My Tests' : 'Мої Тести'}</NavListLink>
                     </NavListItem>}
                 </NavList>
             </Nav>
             </NavWrapper>
+            <LanguageSwitcher  />
             {isLoggedIn && <UserNav />}
         </Container>
     )

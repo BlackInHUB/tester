@@ -33,9 +33,18 @@ const getStatus = (score, testScore) => {
     };
 };
 
+const getCategoryName = (language, categories, id) => {
+    if (language === 'EN') {
+        return categories?.find(c => c.id === id).en;
+    } else {
+        return categories?.find(c => c.id === id).ua;
+    };
+};
+
 export {
     questionNumber,
     answerLetter,
     getTime,
-    getStatus
+    getStatus,
+    getCategoryName
 };

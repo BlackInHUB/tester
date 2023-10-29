@@ -26,10 +26,10 @@ function App() {
           <Route path="tests" element={<PrivatRoute><TestSPage /></PrivatRoute>} />
           <Route path='mytests' element={<PrivatRoute><MyTestsPage /></PrivatRoute>}>
             <Route index element={<Navigate to='created' replace />} />
-            <Route path=':userstests' element={<MyTests />} />
+            <Route path=':userstests' element={<PrivatRoute><MyTests /></PrivatRoute>} />
           </Route>
           <Route path='test/:_id' element={<PrivatRoute><TestPage /></PrivatRoute>} />
-          <Route path='details/:_id' element={<TestDetailsPage />} />
+          <Route path='details/:_id' element={<PrivatRoute><TestDetailsPage /></PrivatRoute>} />
         </Route>
       </Routes>
     </>

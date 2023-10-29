@@ -7,13 +7,12 @@ import { QuestionsList } from "../QuestionsList/QuestionsList";
 import { CategoriesSelect } from "../CategoriesSelect/CategoriesSelect";
 import { notify } from "../../utils/notify";
 
-export const CreateTest = ({onSubmit, cat}) => {
+export const CreateTest = ({onSubmit, categories, language}) => {
     const [questions, setQuestions] = useState([]);
     const [open, setOpen] = useState(false);
     const [edit, setEdit] = useState(false);
     const [options, setOptions] = useState({score: null, time: null});
-    const [chosenCategory, setChosenCategory] = useState({name: 'None'});
-    const categories = cat.filter(c => c.name !== 'All');
+    const [chosenCategory, setChosenCategory] = useState('None');
 
     const toggleModal = () => {
         setOpen(o => !o);
@@ -40,10 +39,10 @@ export const CreateTest = ({onSubmit, cat}) => {
         const {score, time} = options;
         
         if(((score && score <= 0) || (score && isNaN(score))) || ((time && time <= 0) || (time && isNaN(time)))) {
-            return notify('error', 'Options must be positive numbers!');
+            return notify('error', `${language === 'EN' ? 'Options must be positive numbers!' : 'Опції мають бути позитивними цілими числами!'}`);
         };
         
-        onSubmit({questions, options, category: chosenCategory.name});
+        onSubmit({questions, options, category: chosenCategory});
     };
 
     const toggleEdit = (id) => {
@@ -53,20 +52,20 @@ export const CreateTest = ({onSubmit, cat}) => {
     return (
         <Test>
             <TopWrapper>
-                <CategoriesSelect options={categories} chosen={chosenCategory} setChosen={setChosenCategory} />
-                <Button $w='fit-content' onClick={toggleModal} type='button' $iconType='plus' $color='active' text='Add question' $bgColor='hover' />
+                <CategoriesSelect language={language} options={categories} chosen={chosenCategory} setChosen={setChosenCategory} />
+                <Button $w='fit-content' onClick={toggleModal} type='button' $iconType='plus' $color='active' text={language === 'EN' ? 'Add question' : 'Додати питання'} $bgColor='hover' />
             </TopWrapper>
             {questions.length > 0 && <QuestionsList questions={questions} editQuestion={toggleEdit} onDelete={deleteQuestion} />}
             <BottomWrapper>
             <Options>
-                <OptionLabel>Passing score, % (optionaly)
+                <OptionLabel>{language === 'EN' ? 'Passing score, % (optionaly)' : 'Прохідний бал, % (опційно)'}
                     <OptionInput onChange={handleOptionsChange} name='score' type='text' />
                 </OptionLabel>
-                <OptionLabel>Time for test, min (optionaly)
+                <OptionLabel>{language === 'EN' ? 'Time for test, min (optionaly)' : 'Час на тест, хв (опційно)'}
                     <OptionInput onChange={handleOptionsChange} name='time' type='text' />
                 </OptionLabel>
             </Options>
-            <Button disabled={questions.length <= 0} onClick={handleCreateSubmit} $mt='20px' $w='fit-content' type='button' text='Create Test' $bgColor='green' $color='mainFont' />
+            <Button disabled={questions.length <= 0} onClick={handleCreateSubmit} $mt='20px' $w='fit-content' type='button' text={language === 'EN' ? 'Create Test' : 'Створити тест'} $bgColor='green' $color='mainFont' />
             </BottomWrapper>
             {open && <Modal $w='60%' $h='70%' toggleModal={toggleModal} children={<TestQuestion handleSubmit={handleAddQuestion} toggleModal={toggleModal} />} />}
             {edit && <Modal $w='60%' $h='70%' toggleModal={toggleEdit} children={<TestQuestion handleSubmit={handleEditQuestion} edit={edit} state={questions.find(q => q.id === edit)} toggleEdit={toggleEdit} />} />}

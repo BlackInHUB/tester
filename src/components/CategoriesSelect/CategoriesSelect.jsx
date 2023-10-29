@@ -1,9 +1,10 @@
 import { Container, SelectLabel, SelectBtn, SelectIcon, SelectValue, OptionsList, Option } from "./CategoriesSelect.styled";
 import { useRef, useState, useEffect } from "react";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
-import {SlArrowDown} from 'react-icons/sl'
+import {SlArrowDown} from 'react-icons/sl';
+import { getCategoryName } from "../helpers/helpers";
 
-export const CategoriesSelect = ({options, chosen, setChosen}) => {
+export const CategoriesSelect = ({options, chosen, setChosen, language}) => {
     const [open, setOpen] = useState(false);
     const ref = useRef();
 
@@ -12,8 +13,8 @@ export const CategoriesSelect = ({options, chosen, setChosen}) => {
     };
 
     const handleSelect = (e) => {
-        const {textContent} = e.target;
-        setChosen({name: textContent});
+        const {id} = e.target;
+        setChosen(id);
         toggleOpen();
     };
 
@@ -33,15 +34,15 @@ export const CategoriesSelect = ({options, chosen, setChosen}) => {
 
     return (
         <Container>
-            <SelectLabel>Choose category</SelectLabel>
+            <SelectLabel>{language === 'EN' ? 'Choose category' : 'Оберіть категорію'}</SelectLabel>
             <SelectBtn open={open} onClick={toggleOpen} >
-                <SelectValue>{chosen.name}</SelectValue>
+                <SelectValue>{getCategoryName(language, options, chosen)}</SelectValue>
                 <SelectIcon open={open} as={SlArrowDown} />
             </SelectBtn>
             {open && 
                 <OptionsList ref={ref}>
-                    {options.map(({name}, i) => <Option key={i} id={i} onClick={handleSelect}>{name}</Option>)}
+                    {options.map((o, i) => <Option key={i} id={o.id} onClick={handleSelect}>{getCategoryName(language, options, o.id)}</Option>)}
                 </OptionsList>}
         </Container>
-    )
-}
+    );
+};

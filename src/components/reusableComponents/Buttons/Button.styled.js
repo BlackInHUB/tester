@@ -9,9 +9,8 @@ export const Btn = styled.button`
     padding: ${p => p.theme.space[4]}px ${p => p.theme.space[8]}px;
     border-radius: ${p => p.theme.radii.s};
     font-size: ${p => p.theme.fontSize[2]};
-    line-height: ${p => p.theme.lineHeight.l};
     color: ${props => props.$color ? props.theme.colors[props.$color] : props.theme.colors.mainFont};
-    font-weight: ${p => p.theme.fontWeight.m};
+    font-weight: ${p => p.theme.fontWeight.l};
     background-color: ${p => p.$bgColor ? p.theme.colors[p.$bgColor] : 'transparent'};
     border-radius: ${p => p.theme.radii.l};
     margin-top: ${p => p.$mt ? p.$mt : null};

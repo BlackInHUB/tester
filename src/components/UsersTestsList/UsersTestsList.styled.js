@@ -19,6 +19,7 @@ export const TestsList = styled.ul`
 export const TestsListItem = styled.li`
     width: 100%;
     display: grid;
+    align-items: center;
 
     &:not(:first-child) {
         grid-template-columns: repeat(${props => props.$col}, ${props => props.$col && `${100 / props.$col}%`});

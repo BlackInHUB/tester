@@ -1,8 +1,8 @@
-import { getTime } from "../helpers/helpers";
+import { getTime, getCategoryName } from "../helpers/helpers";
 import { Container, Item, Link, StyledIcon, TestsList, TestsListItem, Title, TitlesList, TitlesListItem } from "./UsersTestsList.styled";
 import {BsArrowRightSquare} from 'react-icons/bs';
 
-export const UsersCreatedTestsList = ({tests, $col, titles}) => {
+export const UsersCreatedTestsList = ({tests, $col, titles, language, categories}) => {
 
     return (
         <Container>
@@ -14,18 +14,18 @@ export const UsersCreatedTestsList = ({tests, $col, titles}) => {
                 </TestsListItem>
                 {tests.map(({_id, maxScore, bestTime, passedUsers, category}) => 
                 <TestsListItem key={_id} $col={$col}>
-                    <Item>{category}</Item>
+                    <Item>{getCategoryName(language, categories, category)}</Item>
                     <Item>{passedUsers}</Item>
                     <Item>{maxScore ? maxScore : '-'}</Item>
                     <Item>{bestTime ? getTime(bestTime) : '-'}</Item>
-                    <Link to={`/details/${_id}`}>Details<StyledIcon as={BsArrowRightSquare} /></Link>
+                    <Link to={`/details/${_id}`}>{language === 'EN' ? 'Details' : 'Деталі'}<StyledIcon as={BsArrowRightSquare} /></Link>
                 </TestsListItem>)}
             </TestsList>
         </Container>
     )
 };
 
-export const UsersPassedTestsList = ({tests, $col, titles}) => {
+export const UsersPassedTestsList = ({tests, $col, titles, language, categories}) => {
 
     const getBestScore = (results) => {
         const scores = results.map(r => {
@@ -44,7 +44,7 @@ export const UsersPassedTestsList = ({tests, $col, titles}) => {
                 </TestsListItem>
                 {tests.map(({_id, category, author, results }) => 
                 <TestsListItem key={_id} $col={$col}>
-                    <Item>{category}</Item>
+                    <Item>{getCategoryName(language, categories, category)}</Item>
                     <Item>{author.name}</Item>
                     <Item>{results.length}</Item>
                     <Item>{`${getBestScore(results)}%`}</Item>

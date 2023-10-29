@@ -1,36 +1,36 @@
-import { getTime } from "../helpers/helpers";
+import { getCategoryName, getTime } from "../helpers/helpers";
 import { TestInfoList, TestInfoListItem, TestInfoItemTitle, InfoText } from "./TestContent.styled";
 
-export const TestInfo = ({test}) => {
+export const TestInfo = ({test, language, categories}) => {
     const {author, questions, options, category, maxScore, bestTime} = test;
     const {score, time} = options;
 
     return (
         <TestInfoList>
             <TestInfoListItem>
-                <TestInfoItemTitle>Category:<InfoText>{category}</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>{language === 'EN' ? 'Category' : 'Категорія'}:<InfoText>{getCategoryName(language, categories, category)}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             <TestInfoListItem>
-                <TestInfoItemTitle>Author:<InfoText>{author.name}</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>{language === 'EN' ? 'Author' : 'Автор'}:<InfoText>{author.name}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             <TestInfoListItem>
-                <TestInfoItemTitle>Questions:<InfoText>{questions.length}</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>{language === 'EN' ? 'Questions' : 'Питання'}:<InfoText>{questions.length}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             {score && 
             <TestInfoListItem>
-                <TestInfoItemTitle>Pussing score:<InfoText>{score}%</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>{language === 'EN' ? 'Passing score' : 'Прохідний бал'}:<InfoText>{score}%</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             }
             {time && 
             <TestInfoListItem>
-                <TestInfoItemTitle>Time limit:<InfoText>{time} minutes</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>{language === 'EN' ? 'Time limit' : 'Час на проходження'}:<InfoText>{time}{language === 'EN' ? ' min.' : 'хв.'}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             }
             <TestInfoListItem>
-                <TestInfoItemTitle>Max score:<InfoText>{maxScore ? `${maxScore}%` : '-'}</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>{language === 'EN' ? 'Best score' : 'Кращий результат'}:<InfoText>{maxScore ? `${maxScore}%` : '-'}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
             <TestInfoListItem>
-                <TestInfoItemTitle>Best time:<InfoText>{bestTime ? `${getTime(bestTime)}` : '-'}</InfoText></TestInfoItemTitle>
+                <TestInfoItemTitle>{language === 'EN' ? 'Best time' : 'Кращий час'}:<InfoText>{bestTime ? `${getTime(bestTime)}` : '-'}</InfoText></TestInfoItemTitle>
             </TestInfoListItem>
         </TestInfoList>
     )

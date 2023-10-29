@@ -17,22 +17,24 @@ export const ListItem = styled.li`
     cursor: pointer;
 
     &:hover {
-        background-color: ${({ theme }) => theme.colors.hover};
+        box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.2);
         border-color: ${({ theme }) => theme.colors.active};
     };
 
     &:focus-visible {
-        background-color: ${({ theme }) => theme.colors.hover};
+        box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.2);
         border-color: ${({ theme }) => theme.colors.active};
     };
 `;
 
 export const Title = styled.p`
+    color: ${({ theme }) => theme.colors.mainFont};
     font-weight: ${({ theme }) => theme.fontWeight.l};
     margin-bottom: ${({ theme }) => theme.space[4]}px;
 `;
 
 export const Text = styled.span`
+    color: ${({ theme }) => theme.colors.active};
     margin-left: ${({ theme }) => theme.space[3]}px;
     font-weight: ${({ theme }) => theme.fontWeight.s};
 `;

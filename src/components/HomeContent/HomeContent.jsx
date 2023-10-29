@@ -6,7 +6,7 @@ import { useApp } from "../../appContext";
 
 export const HomeContent = () => {
     const navigate = useNavigate();
-    const {isLoggedIn} = useApp();
+    const {isLoggedIn, language} = useApp();
 
     const handleAuthBtnClick = () => {
         navigate('authentication', {replace: true});
@@ -20,10 +20,10 @@ export const HomeContent = () => {
         <Container>
             <HeroImgWrapper />
             <ContentWrapper>
-            <HomeTitle>Welcome!</HomeTitle>
+            <HomeTitle>{language === 'EN' ? 'Welcome!' : 'Вітаємо!'}</HomeTitle>
             {isLoggedIn ? 
-                <Button $bgColor='green' $color='mainFont' text='Go to Tests' type='button' onClick={handleGoToTestsClick}></Button> :
-                <Button $bgColor='green' $color='mainFont' text='Get Started' type='button' onClick={handleAuthBtnClick}></Button>
+                <Button $bgColor='green' $color='mainFont' text={language === 'EN' ? 'Go to Tests' : 'До Тестів'} type='button' onClick={handleGoToTestsClick}></Button> :
+                <Button $bgColor='green' $color='mainFont' text={language === 'EN' ? 'Get Started' : 'Розпочати'} type='button' onClick={handleAuthBtnClick}></Button>
             }
             </ContentWrapper>
         </Container>

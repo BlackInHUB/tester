@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.section`
     width: 80%;
-    /* height: 100%; */
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     padding-top: ${({ theme }) => theme.space[8]}px;
@@ -49,6 +49,7 @@ export const StyledIcon = styled.svg`
     width: 25px;
     height: 25px;
     fill: ${({ theme }) => theme.colors.mainFont};
+    transform: ${p => p.open ? 'rotate(180deg)' : 'none'};
     transition: ${({ theme }) => theme.transition.all};
 
     ${Btn}:hover & {

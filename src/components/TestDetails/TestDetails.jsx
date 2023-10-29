@@ -5,7 +5,7 @@ import {BsArrowLeftSquare, BsArrowBarDown} from 'react-icons/bs';
 import { useState } from "react";
 import { QuestionsList } from "../QuestionsList/QuestionsList";
 
-export const TestDetails = ({test}) => {
+export const TestDetails = ({test, language}) => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -20,14 +20,18 @@ export const TestDetails = ({test}) => {
     return (
         <Container>
             <TopWrapper>
-                <Btn $position='absolute' type='button' onClick={goBack}><StyledIcon as={BsArrowLeftSquare} />Go Back</Btn>
-                <TestTitle>{`Your created test details:`}</TestTitle>
+                <Btn $position='absolute' type='button' onClick={goBack}><StyledIcon as={BsArrowLeftSquare} />{language === 'EN' ? 'Go Back' : 'Назад'}</Btn>
+                <TestTitle>{language === 'EN' ? `Your created test details:` : 'Деталі створеного вами тесту:'}</TestTitle>
             </TopWrapper>
-            <Btn type='button' onClick={toggleOpen}><StyledIcon as={BsArrowBarDown} />Open questions</Btn>
-            {open &&
-                <QuestionsList questions={test.questions} />
+            {test && 
+                <>
+                    <Btn type='button' onClick={toggleOpen}><StyledIcon open={open} as={BsArrowBarDown} />{language === 'EN' && !open ? 'Open questions' : language === 'EN' && open ? 'Close questions' : open ? 'Закрити питання' : 'Відкрити питання' }</Btn>
+                    {open &&
+                        <QuestionsList questions={test.questions} />
+                    }
+                    <TestDetailsList language={language} test={test} />
+                </>
             }
-            <TestDetailsList test={test} />
         </Container>
     )
 };

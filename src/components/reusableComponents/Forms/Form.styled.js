@@ -19,6 +19,7 @@ export const Input = styled.input`
     padding: ${p => p.theme.space[4]}px ${p => p.theme.space[7]}px;
     border: ${p => p.theme.borders.m} ${p => p.theme.colors.hover};
     border-radius: ${p => p.theme.radii.l};
+    font-family: ${({ theme }) => theme.fonts.main};
     font-size: ${p => p.theme.fontSize[2]};
     line-height: ${p => p.theme.lineHeight.l};
     font-weight: ${p => p.theme.fontWeight.s};

@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
+import { useApp } from "../appContext";
 import { TestsContent } from "../components/TestsContent/TestsContent";
-import { getCategories } from "../services/testsApi";
 
 const TestSPage = () => {
-    const [categories, setCategories] = useState([{name: 'All'}]);
-
-    useEffect(() => {
-        getCategories().then(response => setCategories(c => {return [...c, ...response]}));
-    }, []);
+    const {categories} = useApp();
 
     return (
-        <TestsContent categories={categories} />
+        <>
+            {categories && <TestsContent categories={categories} />}
+        </>
     )
 };
 

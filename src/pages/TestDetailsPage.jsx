@@ -2,10 +2,12 @@ import { useParams } from "react-router-dom";
 import { TestDetails } from "../components/TestDetails/TestDetails";
 import { useEffect, useState } from "react";
 import { getTestDetails } from "../services/testsApi";
+import { useApp } from "../appContext";
 
 const TestDetailsPage = () => {
     const [test, setTest] = useState(null);
     const {_id} = useParams();
+    const {language} = useApp();
     
     useEffect(() => {
         if (!_id) {
@@ -16,9 +18,7 @@ const TestDetailsPage = () => {
     }, [_id]);
 
     return (
-        <>
-            {test && <TestDetails test={test} />}
-        </>
+        <TestDetails language={language} test={test} />
     );
 };
 

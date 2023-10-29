@@ -13,7 +13,7 @@ const initialState = {
 
 export const AuthContent = () => {
     const [authCase, setAuthCase] = useState('log in');
-    const {register, logIn} = useApp();
+    const {register, logIn, language} = useApp();
 
     const handleAuthNavClick = (e) => {
         setAuthCase(e.target.name);
@@ -24,15 +24,15 @@ export const AuthContent = () => {
 
         if (authCase === 'sign up') {
             if (password !== confirm) {
-                return notify('warning', 'Passwords must match!');
+                return notify('warning', `${language === 'EN' ? 'Passwords must match!': 'Паролі повинні співпадати!'}`);
             };
             if (!password || !confirm || !email || !name) {
-                return notify('warning', 'All fields must not be empty!');
+                return notify('warning', `${language === 'EN' ? 'All fields must not be empty!' : 'Усі поля повинні бути заповнені!'}`);
             };
             return register(authData);
         } else if (authCase === 'log in') {
             if (!password || !email) {
-                return notify('warning', 'All fields must not be empty!');
+                return notify('warning', `${language === 'EN' ? 'All fields must not be empty!' : 'Усі поля повинні бути заповнені!'}`);
             };
             return logIn(authData);
         } else {
@@ -47,13 +47,13 @@ export const AuthContent = () => {
                 <AuthWrapper>
                     <AuthNavList>
                         <AuthNavItem>
-                            <AuthNavBtn name='log in' type='button' $active={authCase === 'log in'} onClick={handleAuthNavClick}>LOG IN</AuthNavBtn>
+                            <AuthNavBtn name='log in' type='button' $active={authCase === 'log in'} onClick={handleAuthNavClick}>{language === 'EN' ? 'LOG IN' : 'ВХІД'}</AuthNavBtn>
                         </AuthNavItem>
                         <AuthNavItem>
-                            <AuthNavBtn name='sign up' type='button' $active={authCase === 'sign up'} onClick={handleAuthNavClick}>SIGN UP</AuthNavBtn>
+                            <AuthNavBtn name='sign up' type='button' $active={authCase === 'sign up'} onClick={handleAuthNavClick}>{language === 'EN' ? 'SIGN UP' : 'РЕЄСТРАЦІЯ'}</AuthNavBtn>
                         </AuthNavItem>
                     </AuthNavList>
-                    <Form initialState={initialState} onSubmit={handleSubmit} authCase={authCase} />
+                    <Form language={language} initialState={initialState} onSubmit={handleSubmit} authCase={authCase} />
                 </AuthWrapper>
             </LeftWrapper>
             <RightWrapper>

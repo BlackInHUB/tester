@@ -7,12 +7,14 @@ import { upload } from "../../services/testsApi";
 import { IconButton } from "../reusableComponents/Buttons/IconButton";
 import { notify } from "../../utils/notify";
 import {RiFileUploadLine} from 'react-icons/ri';
+import { useApp } from "../../appContext";
 
 export const TestQuestion = ({handleSubmit, toggleModal, edit, state, toggleEdit}) => {
     const [question, setQuestion] = useState(state?.question ? state.question : '');
     const [file, setFile] = useState(null);
     const [answers, setAnswers] = useState(state?.answers ? state.answers : [{id: nanoid(), answer: '', correct: false}]);
     const ref = useRef();
+    const {language} = useApp();
 
     const addAnswer = () => {
         setAnswers(a => [...a, {id: nanoid(), answer: '', correct: false}]);
@@ -71,13 +73,13 @@ export const TestQuestion = ({handleSubmit, toggleModal, edit, state, toggleEdit
         let image;
 
         if (answers.length < 2) {
-            return notify('error', 'Question must have at lest 2 answers!');
+            return notify('error', `${language === 'EN' ? 'Question must have at lest 2 answers!' : 'Питання повинно мати як мінімум 2 відповіді!'}`);
         };
         if (answers.find(a => a.answer === '')) {
-            return notify('error', 'Answers must not be empty!');
+            return notify('error', `${language === 'EN' ? 'Answers must not be empty!' : 'Відповідь не може бути породньою!'}`);
         };
         if (!answers.find(a => a.correct)) {
-            return notify('error', 'You must mark at least 1 correct answer!');
+            return notify('error', `${language === 'EN' ? 'You must mark at least 1 correct answer!' : 'Ви маєте відмітити хоча б одну вірну відповідь!'}`);
         };
 
         if (file) {
@@ -103,22 +105,22 @@ export const TestQuestion = ({handleSubmit, toggleModal, edit, state, toggleEdit
         <TestWrapper>
             <TestForm onSubmit={onSubmit} encType="multipart/form-data">
                 <QuestionWrapper>
-                    <QLabel htmlFor='question'>Question:
+                    <QLabel htmlFor='question'>{language === 'EN' ? 'Question:' : 'Питання:'}
                         <Question id='question' value={question} onChange={handleQuestionChange} />
                     </QLabel>
-                    <UploadLabel htmlFor='upload'>Or/And:
+                    <UploadLabel htmlFor='upload'>{language === 'EN' ? 'Or/And:' : 'Або (та):'}
                         <UploadInput ref={ref} id='upload' type='file' onChange={handleUpload} />
                         <UploadBtn type='button' onClick={handleUploadClick}>
                             {(file || state?.image) ? <PreviewImg src={file ? URL.createObjectURL(file) : state.image} /> : <StyledIcon as={RiFileUploadLine} />}
                         </UploadBtn>
                     </UploadLabel>
                 </QuestionWrapper>
-                <AnswersLabel>Answers:<AnswersLabelSpan>Mark correct answer (can be multiple) ✔</AnswersLabelSpan></AnswersLabel>
+                <AnswersLabel>{language === 'EN' ? 'Answers:' : 'Відповіді:'}<AnswersLabelSpan>{language === 'EN' ? 'Mark correct answer (can be multiple)' : 'Відмітьте правильну відповідь (можливо декілька)'} ✔</AnswersLabelSpan></AnswersLabel>
                 {answers.map(({id, ...value}) => <Answer length={answers.length} key={id} id={id} value={value} handleChange={handleAnswerChange} onDelete={deleteAnswer} />)}
-                <IconButton $iconType='plus' $type='button' onClick={addAnswer} $size='25px'>Add Answer</IconButton>
+                <IconButton $iconType='plus' $type='button' onClick={addAnswer} $size='25px'>{language === 'EN' ? 'Add Answer' : 'Додати відповідь'}</IconButton>
                 <BtnsWrapper>
-                    <Button type='submit' text={edit ? 'Edit' : 'Add'} $bgColor='green' $color='mainFont' $w='fit-content' />
-                    <Button type='button' text='Clean up' $bgColor='hover' $color='active' $w='fit-content' onClick={handleCleanUp} />
+                    <Button type='submit' text={edit ? (language === 'EN' ? 'Edit' : 'Редагувати') : (language === 'EN' ? 'Add' : 'Додати')} $bgColor='green' $color='mainFont' $w='fit-content' />
+                    <Button type='button' text={language === 'EN' ? 'Clean up' : 'Очистити'} $bgColor='hover' $color='active' $w='fit-content' onClick={handleCleanUp} />
                 </BtnsWrapper>
             </TestForm>
         </TestWrapper>

@@ -6,7 +6,6 @@ import { Footer } from "../Footer/Footer";
 import { Loader } from "../Loader/Loader";
 
 export const Layout = () => {
-
     return (
         <Main>
             <AppBar />

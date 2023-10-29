@@ -4,18 +4,18 @@ import {RiUser3Line} from 'react-icons/ri';
 import { useApp } from '../../appContext';
 
 export const UserNav = () => {
-    const {logOut, userData} = useApp();
+    const {logOut, userData, language} = useApp();
 
-    const {user} = userData;
-
-    if(!user) {
+    if(!userData) {
         return;
     };
+
+    const {user} = userData;
 
     return (
         <UserNavWrapper>
             <User><StyledIcon as={RiUser3Line} />{user.name}</User>
-            <Button $iconType='logout' text='Log Out' type='button' onClick={logOut} />
+            <Button $iconType='logout' text={language === 'EN' ? 'Log Out' : 'Вийти'} type='button' onClick={logOut} />
         </UserNavWrapper>
     )
 }
