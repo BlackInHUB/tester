@@ -62,6 +62,6 @@ const theme = {
         under: 'underline',
         none: 'none'
     }
-  };
-  
-  export default theme;
+};
+
+export default theme;

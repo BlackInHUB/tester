@@ -7,8 +7,6 @@ import {SiTestcafe} from 'react-icons/si';
 export const AppBar = () => {
     const {isLoggedIn, isLoading, language} = useApp();
 
-    console.log(isLoading);
-
     return (
         <Container>
             <NavWrapper>

@@ -1,4 +1,4 @@
-import {ListItem, Question, AnswersList, AnswersListItem, Answer, AnswerChekbox, ImageWrapper, QuestionImage, QuestionNumber, AnswerLetter, MultipleAnswers} from './TestList.styled';
+import {ListItem, Question, AnswersList, AnswersListItem, Answer, AnswerChekbox, ImageWrapper, QuestionImage, QuestionNumber, AnswerLetter, MultipleAnswers, AnswerListItemLabel} from './TestList.styled';
 import * as helpers from '../helpers/helpers';
 
 export const TestListItem = ({q, i, shown, getAnswers, userAnswers}) => {
@@ -16,9 +16,11 @@ export const TestListItem = ({q, i, shown, getAnswers, userAnswers}) => {
             <AnswersList>
                 {answers.map(({id, answer}, i) => 
                     <AnswersListItem key={id}>
-                        <AnswerChekbox onChange={(e) => getAnswers(e, questionId)} id={id} type='checkbox' checked={cheks ? cheks.includes(id) : false} />
-                        <AnswerLetter>{helpers.answerLetter(i)}.</AnswerLetter>
-                        <Answer>{answer}</Answer>
+                        <AnswerListItemLabel>
+                            <AnswerChekbox onChange={(e) => getAnswers(e, questionId)} id={id} type='checkbox' checked={cheks ? cheks.includes(id) : false} />
+                            <AnswerLetter>{helpers.answerLetter(i)}.</AnswerLetter>
+                            <Answer>{answer}</Answer>
+                        </AnswerListItemLabel>
                     </AnswersListItem>)}
             </AnswersList>
         </ListItem>

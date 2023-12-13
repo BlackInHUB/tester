@@ -35,7 +35,7 @@ export const Title = styled.p`
 
 export const Item = styled.p`
     display: block;
-    color: ${props => props.$status === 'success' ? props.theme.colors.greenHover : props.$status === 'fail' ? props.theme.colors.active : 'inherit'};
+    color: ${props => props.$status === 'success' ? props.theme.colors.greenHover : props.$status === 'fail' ? "red" : 'inherit'};
 `;
 
 export const SortBtn = styled.button`

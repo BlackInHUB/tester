@@ -78,7 +78,6 @@ export const TestContent = ({test, sendResults}) => {
                     for (let qa of qA) {
                         for (let a of aA ) {
                             if (qa.id === a && qa.correct) {
-                                // console.log(qa.id, a, qa.correct, multiple);
                                 if (multiple > 1) {
                                     count += 1 / multiple;
                                 } else {

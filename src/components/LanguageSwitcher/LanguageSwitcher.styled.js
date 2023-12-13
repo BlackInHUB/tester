@@ -66,7 +66,7 @@ export const OptionsList = styled.ul`
     flex-direction: column;
     gap: 10px;
     font-size: ${({ theme }) => theme.fontSize[2]};
-    padding: ${({ theme }) => theme.space[4]}px;
+    padding: ${({ theme }) => theme.space[4]}px 0px;
     border: ${({ theme }) => theme.borders.s} ${({ theme }) => theme.colors.hover};
     border-radius: ${p => p.theme.radii.s};
     background-color: ${({ theme }) => theme.colors.secondaryBG};
@@ -77,11 +77,12 @@ export const OptionsList = styled.ul`
 export const Option = styled.li`
     font-size: inherit;
     transition: ${({ theme }) => theme.transition.all};
-    padding: ${({ theme }) => theme.space[3]}px;
+    padding: ${({ theme }) => theme.space[2]}px ${({ theme }) => theme.space[4]}px;
     cursor: pointer;
 
     &:hover,
     :focus-visible {
+        color: ${({ theme }) => theme.colors.active};
         background-color: ${({ theme }) => theme.colors.hover};
     };
 `;

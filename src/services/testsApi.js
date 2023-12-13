@@ -23,8 +23,7 @@ const create = async (body) => {
 
 const getTests = async (params) => {
     try {
-        const {data} = await instance.get(`/tests/getall?${params}`);
-        // console.log(data);
+        const {data} = await instance.get(`/tests/getall${params ? `?${params}` : ''}`);
         return data;
     } catch ({response}) {
         notify('error', response.data.message)
@@ -53,7 +52,7 @@ const sendResults = async (_id, results) => {
 
 const getCategories = async () => {
     try {
-        const {data} = await instance.get('/categories/getall/');
+        const {data} = await instance.get('/categories/getall');
         return data;
     } catch ({response}) {
         notify('error', response.data.message)

@@ -17,21 +17,21 @@ export const AppProvider = ({ children }) => {
         const localToken = localStorage.getItem('token');
 
         if (!localToken || localToken === '') {
-            return setIsLoading(false);
+            return setIsLoggedIn(false);
         };
+
+        setIsLoading(true);
 
         authApi.current(JSON.parse(localToken)).then(response => {
             setUserData({token: JSON.parse(localToken), user: response});
             setIsLoggedIn(true);
-        }).finally(() => {
-            setIsLoading(false)
-        });
+        }).then(getCategories().then(setCategories));
     }, []);
 
-    useEffect(() => {
-        setIsLoading(true);
-        getCategories().then(setCategories).finally(setIsLoading(false));
-    }, []);
+    // useEffect(() => {
+    //     setIsLoading(true);
+    //     getCategories().then(setCategories).finally(setIsLoading(false));
+    // }, []);
 
     const logIn = (authData) => {
         setIsLoading(true);
@@ -39,9 +39,7 @@ export const AppProvider = ({ children }) => {
             setUserData(response);
             localStorage.setItem('token', JSON.stringify(response.token));
             setIsLoggedIn(true);
-        }).finally(() => {
-            setIsLoading(false);
-        });
+        }).finally(setIsLoading(false));
     };
 
     const register = (authData) => {
@@ -60,7 +58,18 @@ export const AppProvider = ({ children }) => {
     };
 
     return (
-        <AppContext.Provider value={{ categories, isLoggedIn, userData, logIn, logOut, register, isLoading, setIsLoading, language, setLanguage }}>
+        <AppContext.Provider value={{
+            categories,
+            isLoggedIn,
+            userData,
+            logIn,
+            logOut,
+            register,
+            isLoading,
+            setIsLoading,
+            language,
+            setLanguage }}
+            >
             {children}
         </AppContext.Provider>
     );

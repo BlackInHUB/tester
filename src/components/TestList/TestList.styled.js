@@ -51,9 +51,14 @@ export const AnswersList = styled.ul`
 `;
 
 export const AnswersListItem = styled.li`
-    display: flex;
-    gap: ${({ theme }) => theme.space[3]}px;
+    
 `;
+
+export const AnswerListItemLabel = styled.label`
+    display: flex;
+    align-items: flex-end;
+    gap: ${({ theme }) => theme.space[3]}px;
+`
 
 export const AnswerLetter = styled.p`
     font-weight: ${({ theme }) => theme.fontWeight.l};

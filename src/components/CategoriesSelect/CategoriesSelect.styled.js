@@ -44,6 +44,7 @@ export const SelectIcon = styled.svg`
     width: 15px;
     height: 15px;
     fill: ${p => p.open ? p.theme.colors.active : p.theme.colors.mainFont};
+    transition: ${({ theme }) => theme.transition.all};
     transform: ${p => p.open ? 'rotate(180deg)' : 'none'};
 `
 
@@ -53,9 +54,9 @@ export const OptionsList = styled.ul`
     position: absolute;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
-    padding: 20px 0;
+    padding: ${({ theme }) => theme.space[3]}px 0;
     border: ${({ theme }) => theme.borders.s} ${({ theme }) => theme.colors.hover};
     border-radius: ${p => p.theme.radii.s};
     background-color: ${({ theme }) => theme.colors.secondaryBG};
@@ -64,7 +65,7 @@ export const OptionsList = styled.ul`
 `;
 
 export const Option = styled.li`
-    padding-left: 20px;
+    padding: ${({ theme }) => theme.space[2]}px 0 ${({ theme }) => theme.space[2]}px ${({ theme }) => theme.space[6]}px;
     transition: ${({ theme }) => theme.transition.all};
     cursor: pointer;
 
