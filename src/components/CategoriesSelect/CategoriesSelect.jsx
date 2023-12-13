@@ -12,9 +12,8 @@ export const CategoriesSelect = ({options, chosen, setChosen, language}) => {
         setOpen(o => !o);
     };
 
-    const handleSelect = (e) => {
-        const {id} = e.target;
-        setChosen(id);
+    const handleSelect = (o) => {
+        setChosen(o);
         toggleOpen();
     };
 
@@ -33,15 +32,15 @@ export const CategoriesSelect = ({options, chosen, setChosen, language}) => {
     useEscapeKey(() => setOpen(false));
 
     return (
-        <Container>
+        <Container ref={ref}>
             <SelectLabel>{language === 'EN' ? 'Choose category' : 'Оберіть категорію'}</SelectLabel>
             <SelectBtn open={open} onClick={toggleOpen} >
-                <SelectValue>{getCategoryName(language, options, chosen)}</SelectValue>
+                <SelectValue>{getCategoryName(language, options, chosen.id)}</SelectValue>
                 <SelectIcon open={open} as={SlArrowDown} />
             </SelectBtn>
             {open && 
-                <OptionsList ref={ref}>
-                    {options.map((o, i) => <Option key={i} id={o.id} onClick={handleSelect}>{getCategoryName(language, options, o.id)}</Option>)}
+                <OptionsList>
+                    {options.map((o, i) => <Option key={i} id={o.id} onClick={() => handleSelect(o)}>{getCategoryName(language, options, o.id)}</Option>)}
                 </OptionsList>}
         </Container>
     );

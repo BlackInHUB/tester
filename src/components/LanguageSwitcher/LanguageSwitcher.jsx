@@ -16,10 +16,14 @@ export const LanguageSwitcher = () => {
         setOpen(o => !o);
     };
 
+    const toggleOpen = () => {
+        setOpen(o => !o);
+    };
+
     useEffect(() => {
         const handleClick = (e) => {
             if (open && ref.current && !ref.current.contains(e.target)) {
-                setOpen(o => !o);
+                setOpen(false);
             };
         };
 
@@ -31,10 +35,10 @@ export const LanguageSwitcher = () => {
     useEscapeKey(() => setOpen(false));
 
     return (
-        <Container>
-            <SelectBtn type='button' onClick={() => setOpen(o => !o)}><SelectImg src={language === 'EN' ? en : ua} />{language}<SelectIcon as={SlArrowDown} open={open} /></SelectBtn>
+        <Container ref={ref}>
+            <SelectBtn type='button' onClick={toggleOpen}><SelectImg src={language === 'EN' ? en : ua} />{language}<SelectIcon as={SlArrowDown} open={open} /></SelectBtn>
             {open &&
-                <OptionsList ref={ref}>
+                <OptionsList>
                     <Option onClick={handleChose} id='EN'>{language === 'EN' ? 'English' : 'Англійська'}</Option>
                     <Option onClick={handleChose} id='UA'>{language === 'EN' ? 'Ukrainian' : 'Українська'}</Option>
                 </OptionsList>

@@ -15,7 +15,7 @@ export const TestsContent = ({categories}) => {
     const {language, isLoading, setIsLoading} = useApp();
     const [open, setOpen] = useState(false);
     const [tests, setTests] = useState([]);
-    const [chosen, setChosen] = useState('All');
+    const [chosen, setChosen] = useState({id: 'All', en: 'All', ua: 'Всі'});
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     const categoriesForSelect = [{id: 'All', en: 'All', ua: 'Всі'}, ...categories];
@@ -31,12 +31,12 @@ export const TestsContent = ({categories}) => {
     useEffect(() => {
         setIsLoading(true);
 
-        if (chosen === 'All') {
+        if (chosen.id === 'All') {
             testsApi.getTests().then(setTests).finally(() => {
                 setIsLoading(false)
             });
         } else {
-            setSearchParams(`category=${chosen}`);
+            setSearchParams(`category=${chosen.id}`);
             testsApi.getTests(searchParams).then(setTests).finally(() => {
                 setIsLoading(false)
             });
@@ -59,14 +59,13 @@ export const TestsContent = ({categories}) => {
 
     return (
         <Container>
+            {isLoading && <Loader $size='50px' />}
             <Button onClick={toggleModal} type='button' $bgColor='hover' $color='active' $iconType='plus' $iconSize='25px' text={language === 'EN' ? 'Create a Test' : 'Створити Тест'} />
             <CategoriesSelect language={language} chosen={chosen} setChosen={setChosen} options={categoriesForSelect} />
-            {tests?.length > 0 && <SectionTitle>{language === 'EN' ? 'Available Tests' : 'Доступні тести'}:</SectionTitle>}
-            {isLoading ? 
-                <Loader $size='50px' /> :
-                tests?.length > 0 && !isLoading ?
+            <SectionTitle>{language === 'EN' ? 'Available Tests' : 'Доступні тести'}:</SectionTitle>
+            {tests?.length > 0 && !isLoading ?
                     <TestsList categories={categories} language={language} handleClick={handleClick} tests={tests} /> :
-                    <Sorry><SorryText>{language === 'EN' ? 'Sorry, but we have no tests in category ' : 'Вибачте, ми не маємо тестів в категорії '}<SorryCategory>{chosen.name}</SorryCategory> :(</SorryText></Sorry>
+                    !isLoading && <Sorry><SorryText>{language === 'EN' ? 'Sorry, but we have no tests in category ' : 'Вибачте, ми не маємо тестів в категорії '}<SorryCategory>{language === 'EN' ? chosen.en : chosen.ua}</SorryCategory> :(</SorryText></Sorry>
             }
             {open && <Modal toggleModal={toggleModal} children={<CreateTest language={language} onSubmit={createTestSubmit} categories={categories} />} />}
         </Container>

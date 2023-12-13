@@ -7,7 +7,7 @@ const AppContext = createContext();
 export const useApp = () => useContext(AppContext);
 
 export const AppProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState(null);
     const [language, setLanguage] = useState('EN');

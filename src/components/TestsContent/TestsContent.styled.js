@@ -18,7 +18,7 @@ export const Sorry = styled.div`
     padding: ${({ theme }) => theme.space[4]}px;
     background-color: ${({ theme }) => theme.colors.secondaryBG};
     border-radius: ${({ theme }) => theme.radii.s};
-    margin-top: ${({ theme }) => theme.space[8]}px;
+    /* margin-top: ${({ theme }) => theme.space[10]}px; */
 `;
 
 export const SorryText = styled.p`
