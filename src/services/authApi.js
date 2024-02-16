@@ -2,8 +2,8 @@ import axios from "axios";
 import { notify } from "../utils/notify";
 
 export const instance = axios.create({
-  baseURL: "http://localhost:8080",
-  // baseURL: 'https://tester-pa0u.onrender.com'
+  //   baseURL: "http://localhost:8080",
+  baseURL: "https://tester-pa0u.onrender.com",
 });
 
 const setToken = (token) => {
