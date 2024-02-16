@@ -1,4 +1,4 @@
-import { Main } from "./Layout.styled";
+import { LayoutWrapper, Main } from "./Layout.styled";
 import { Outlet } from "react-router-dom";
 import { Suspense } from "react";
 import { AppBar } from "../AppBar/AppBar";
@@ -9,9 +9,11 @@ export const Layout = () => {
     return (
         <Main>
             <AppBar />
-            <Suspense fallback={<Loader $size='50px' />}>
-                <Outlet />
-            </Suspense>
+            <LayoutWrapper>
+                <Suspense fallback={<Loader $size='50px' />}>
+                    <Outlet />
+                </Suspense>
+            </LayoutWrapper>
             <Footer />
         </Main>
     )

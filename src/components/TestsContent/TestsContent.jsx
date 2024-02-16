@@ -28,6 +28,8 @@ export const TestsContent = ({categories}) => {
         };
     }, [open]);
 
+    console.log(chosen);
+
     useEffect(() => {
         setIsLoading(true);
 
@@ -63,7 +65,7 @@ export const TestsContent = ({categories}) => {
             <Button onClick={toggleModal} type='button' $bgColor='hover' $color='active' $iconType='plus' $iconSize='25px' text={language === 'EN' ? 'Create a Test' : 'Створити Тест'} />
             <CategoriesSelect language={language} chosen={chosen} setChosen={setChosen} options={categoriesForSelect} />
             <SectionTitle>{language === 'EN' ? 'Available Tests' : 'Доступні тести'}:</SectionTitle>
-            {tests?.length > 0 && !isLoading ?
+            {tests?.length > 0 ?
                     <TestsList categories={categories} language={language} handleClick={handleClick} tests={tests} /> :
                     !isLoading && <Sorry><SorryText>{language === 'EN' ? 'Sorry, but we have no tests in category ' : 'Вибачте, ми не маємо тестів в категорії '}<SorryCategory>{language === 'EN' ? chosen.en : chosen.ua}</SorryCategory> :(</SorryText></Sorry>
             }
