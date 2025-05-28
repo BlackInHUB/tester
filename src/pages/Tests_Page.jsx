@@ -1,16 +1,10 @@
-import { useApp } from "../appContext";
-import { TestsContent } from "../components/TestsContent/TestsContent";
+import { useApp } from '../appContext';
+import { TestsContent } from '../components/TestsContent/TestsContent';
 
 const TestSPage = () => {
-    const { categories } = useApp();
+  const { categories } = useApp();
 
-    console.log(categories)
-
-    return (
-        <>
-            {categories && <TestsContent categories={categories} />}
-        </>
-    )
+  return <>{categories && <TestsContent categories={categories} />}</>;
 };
 
 export default TestSPage;
