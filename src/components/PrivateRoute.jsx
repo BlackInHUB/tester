@@ -1,9 +1,9 @@
 import { useApp } from '../appContext';
 import { Navigate } from 'react-router-dom';
-import { notify } from '../utils/notify';
+// import { notify } from '../utils/notify';
 
 export const PrivateRoute = ({ children }) => {
-  const { isLoggedIn, isLoading, language } = useApp();
+  const { isLoggedIn, isLoading } = useApp();
 
   const navigate = !isLoggedIn && !isLoading ? true : false;
 
